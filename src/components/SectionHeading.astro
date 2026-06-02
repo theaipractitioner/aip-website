@@ -1,0 +1,53 @@
+---
+// Section Heading Pattern: Eyebrow → Heading → Subtext
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  subtext?: string;
+  align?: "left" | "center";
+  class?: string;
+}
+const {
+  eyebrow,
+  heading,
+  subtext,
+  align = "left",
+  class: className = "",
+} = Astro.props;
+const alignCls = align === "center" ? "text-center mx-auto" : "";
+---
+
+<div class:list={[className]}>
+  {
+    eyebrow && (
+      <p
+        class:list={[
+          "font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3",
+          alignCls,
+        ]}
+      >
+        {eyebrow}
+      </p>
+    )
+  }
+  <h2
+    class:list={[
+      "font-heading font-bold text-h2 text-aip-navy",
+      align === "center" ? "text-center" : "",
+    ]}
+  >
+    {heading}
+  </h2>
+  {
+    subtext && (
+      <p
+        class:list={[
+          "font-body font-light text-[16px] text-aip-grey mt-4 max-w-[600px]",
+          alignCls,
+        ]}
+      >
+        {subtext}
+      </p>
+    )
+  }
+</div>

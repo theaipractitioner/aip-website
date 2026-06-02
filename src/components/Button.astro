@@ -1,0 +1,48 @@
+---
+// Button — Primary (teal fill) / Secondary (teal border) patterns.
+// Renders as <a> when href is given, otherwise <button>.
+interface Props {
+  variant?: "primary" | "secondary";
+  href?: string;
+  type?: "button" | "submit";
+  disabled?: boolean;
+  class?: string;
+}
+const {
+  variant = "primary",
+  href,
+  type = "button",
+  disabled = false,
+  class: className = "",
+} = Astro.props;
+
+const shared =
+  "inline-block font-body font-medium text-[14px] px-6 py-3 rounded-md transition-colors duration-150";
+
+const variants = {
+  primary: "bg-aip-teal text-aip-white hover:bg-aip-teal-hover",
+  secondary:
+    "bg-transparent border-[1.5px] border-aip-teal text-aip-teal hover:bg-aip-teal-tint",
+};
+
+const disabledCls = "opacity-50 cursor-not-allowed pointer-events-none";
+
+const classes = [
+  shared,
+  variants[variant],
+  disabled ? disabledCls : "",
+  className,
+];
+---
+
+{
+  href && !disabled ? (
+    <a href={href} class:list={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} disabled={disabled} class:list={classes}>
+      <slot />
+    </button>
+  )
+}

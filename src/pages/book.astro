@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+---
+
+<BaseLayout title="Book — The AI Practitioner">
+  <!-- Page hero (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <p
+        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+      >
+        Book
+      </p>
+      <h1 class="font-heading font-bold text-h1 text-aip-navy">
+        Book a session
+      </h1>
+      <p
+        class="font-body font-light text-[18px] text-aip-grey mt-4 max-w-[560px]"
+      >
+        Booking coming soon — powered by Acuity Scheduling.
+      </p>
+
+      <!-- Amber callout (max one per page) -->
+      <div
+        class="mt-8 max-w-[640px] bg-aip-cloud border-l-4 border-aip-amber p-5"
+      >
+        <p class="font-heading italic text-[18px] text-aip-navy">
+          Scheduling isn’t live just yet — check back shortly to reserve your
+          spot.
+        </p>
+      </div>
+
+      <div class="mt-8">
+        <Button variant="primary" disabled>Booking coming soon</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  THE AI PRACTITIONER — Brand Design System (Tailwind v4 @theme)     */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Colours — exact brand tokens */
+  --color-aip-navy: #1f3864; /* headings, hero backgrounds, footer */
+  --color-aip-teal: #209188; /* CTAs, links, hover states */
+  --color-aip-grey: #4a5568; /* body text */
+  --color-aip-cloud: #f7f9fc; /* section fills, cards */
+  --color-aip-white: #ffffff; /* page canvas */
+  --color-aip-amber: #d97706; /* max one callout element per page */
+
+  /* Hover variants */
+  --color-aip-teal-hover: #1a7a73; /* primary button hover */
+  --color-aip-teal-tint: #e8f4f3; /* secondary button hover fill */
+
+  /* Fonts */
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* Type scale */
+  --text-display: 4rem; /* 64px */
+  --text-h1: 3rem; /* 48px */
+  --text-h2: 2.25rem; /* 36px */
+  --text-h3: 1.625rem; /* 26px */
+  --text-h4: 1.125rem; /* 18px */
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base element styles                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-aip-grey);
+    background-color: var(--color-aip-white);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+    font-optical-sizing: auto;
+    color: var(--color-aip-navy);
+  }
+
+  a {
+    color: var(--color-aip-teal);
+  }
+
+  /* Global focus ring — 2px Teal, 2px offset */
+  :focus-visible {
+    outline: 2px solid var(--color-aip-teal);
+    outline-offset: 2px;
+  }
+}

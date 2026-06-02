@@ -1,0 +1,70 @@
+---
+import Logo from "./Logo.astro";
+
+const navLinks = [
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Book", href: "/book" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+const year = 2026;
+---
+
+<footer class="bg-aip-navy text-aip-white">
+  <div class="mx-auto max-w-[1200px] px-6 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <!-- Column 1: logo + tagline -->
+      <div>
+        <Logo variant="dark" class="text-lg" />
+        <p class="mt-4 font-body font-light text-[16px] text-aip-white/80">
+          AI Fluency for Professionals
+        </p>
+      </div>
+
+      <!-- Column 2: nav links -->
+      <div>
+        <p
+          class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-white/60 mb-4"
+        >
+          Navigate
+        </p>
+        <ul class="flex flex-col gap-3">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Column 3: contact placeholder -->
+      <div>
+        <p
+          class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-white/60 mb-4"
+        >
+          Contact
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-white/80">
+          hello@theaipractitioner.ai
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-white/80 mt-2">
+          [Contact details to come]
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-aip-white/15">
+      <p class="font-body font-light text-[14px] text-aip-white/60">
+        © {year} The AI Practitioner. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

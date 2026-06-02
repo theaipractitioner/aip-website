@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const dateFmt = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<BaseLayout title="Blog — The AI Practitioner">
+  <!-- Page hero (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <p
+        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+      >
+        Blog
+      </p>
+      <h1 class="font-heading font-bold text-h1 text-aip-navy">
+        Notes &amp; ideas
+      </h1>
+      <p
+        class="font-body font-light text-[18px] text-aip-grey mt-4 max-w-[560px]"
+      >
+        Placeholder subtext introducing the blog.
+      </p>
+    </div>
+  </section>
+
+  <!-- Post grid (Light Cloud) -->
+  <section class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          posts.map((post) => (
+            <article class="bg-aip-white border border-aip-cloud rounded-lg p-7 flex flex-col">
+              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal">
+                {post.data.category}
+              </p>
+              <h3 class="font-heading font-semibold text-h3 text-aip-navy mt-3">
+                {post.data.title}
+              </h3>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-3 grow">
+                {post.data.excerpt}
+              </p>
+              <p class="font-body text-[14px] text-aip-grey/70 mt-5">
+                {dateFmt.format(post.data.publishDate)} · {post.data.readingTime}{" "}
+                min read
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

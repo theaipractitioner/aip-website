@@ -1,11 +1,123 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const services = [
+  { title: "Service One", text: "Placeholder description for the first service offering." },
+  { title: "Service Two", text: "Placeholder description for the second service offering." },
+  { title: "Service Three", text: "Placeholder description for the third service offering." },
+];
+
+const testimonials = [
+  { quote: "Placeholder testimonial quote goes here, two lines or so of warm praise.", name: "Name Placeholder", role: "Role, Company" },
+  { quote: "A second placeholder testimonial quote sitting alongside the first one.", name: "Name Placeholder", role: "Role, Company" },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="The AI Practitioner — AI Fluency for Professionals">
+  <!-- 1. Hero (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1
+            class="font-heading font-bold text-aip-navy text-[40px] md:text-display leading-[1.1]"
+          >
+            You already have what it takes to use AI well.
+          </h1>
+          <p
+            class="font-body font-light text-[18px] text-aip-grey leading-relaxed mt-6 max-w-[560px]"
+          >
+            One-to-one coaching and workshops for professionals who want to use
+            Claude for real work.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <Button variant="primary" href="/book">Book a session</Button>
+            <Button variant="secondary" href="#how-it-works"
+              >See how it works</Button
+            >
+          </div>
+        </div>
+        <!-- Right column: placeholder for photoshoot image -->
+        <div
+          class="aspect-[4/3] rounded-lg bg-aip-cloud border border-aip-cloud flex items-center justify-center"
+        >
+          <span class="font-body text-[14px] text-aip-grey/50"
+            >[ Photo to come ]</span
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Services preview (Light Cloud) -->
+  <section id="how-it-works" class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <SectionHeading
+        eyebrow="What I offer"
+        heading="Services preview"
+        subtext="Placeholder intro text for the services section."
+        align="center"
+        class="mb-12"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          services.map((s) => (
+            <div class="bg-aip-white border border-aip-cloud rounded-lg p-7">
+              <h3 class="font-heading font-semibold text-h3 text-aip-navy">
+                {s.title}
+              </h3>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-3">
+                {s.text}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Testimonials (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <SectionHeading
+        eyebrow="In their words"
+        heading="Testimonials"
+        align="center"
+        class="mb-12"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          testimonials.map((t) => (
+            <figure class="border border-aip-cloud rounded-lg p-7">
+              <blockquote class="font-heading italic text-[18px] text-aip-navy leading-relaxed">
+                “{t.quote}”
+              </blockquote>
+              <figcaption class="mt-5 font-body text-[14px] text-aip-grey">
+                <span class="font-medium text-aip-navy">{t.name}</span> — {t.role}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CTA band (Deep Navy) -->
+  <section class="bg-aip-navy">
+    <div class="mx-auto max-w-[1200px] px-6 py-20 text-center">
+      <h2 class="font-heading font-bold text-h2 text-aip-white">
+        Ready to put AI to work?
+      </h2>
+      <p
+        class="font-body font-light text-[16px] text-aip-white/80 mt-4 max-w-[600px] mx-auto"
+      >
+        Placeholder closing line inviting visitors to take the next step.
+      </p>
+      <div class="mt-8">
+        <Button variant="primary" href="/book">Book a session</Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

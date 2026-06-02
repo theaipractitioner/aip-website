@@ -1,0 +1,22 @@
+---
+// Logo — pure HTML/CSS wordmark (NOT an image).
+// The Teal "I" in "AI" is the single most important brand detail.
+// Light variant: navy text on light backgrounds. Dark variant: white text on navy.
+interface Props {
+  variant?: "light" | "dark";
+  class?: string;
+}
+const { variant = "light", class: className = "" } = Astro.props;
+const base = variant === "dark" ? "text-aip-white" : "text-aip-navy";
+---
+
+<span
+  class:list={[
+    "font-heading font-bold tracking-tight whitespace-nowrap select-none",
+    base,
+    className,
+  ]}
+  aria-label="The AI Practitioner"
+>
+  THE A<span class="text-aip-teal">I</span> PRACTITIONER
+</span>

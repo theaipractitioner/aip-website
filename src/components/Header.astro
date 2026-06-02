@@ -1,0 +1,76 @@
+---
+import Logo from "./Logo.astro";
+
+const navLinks = [
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Book", href: "/book" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+];
+---
+
+<header class="sticky top-0 z-50 bg-aip-white border-b border-aip-cloud">
+  <div
+    class="mx-auto max-w-[1200px] px-6 h-16 flex items-center justify-between"
+  >
+    <a href="/" class="flex items-center">
+      <Logo variant="light" class="text-lg" />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-8">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="font-body font-medium text-[14px] text-aip-grey hover:text-aip-teal transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      class="md:hidden flex flex-col justify-center gap-[5px] w-8 h-8"
+    >
+      <span class="block h-[2px] w-6 bg-aip-navy"></span>
+      <span class="block h-[2px] w-6 bg-aip-navy"></span>
+      <span class="block h-[2px] w-6 bg-aip-navy"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <nav
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-aip-cloud bg-aip-white"
+  >
+    <div class="mx-auto max-w-[1200px] px-6 py-4 flex flex-col gap-4">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="font-body font-medium text-[14px] text-aip-grey hover:text-aip-teal transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const menu = document.getElementById("mobile-menu");
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden");
+    toggle.setAttribute("aria-expanded", String(open === false));
+  });
+</script>
