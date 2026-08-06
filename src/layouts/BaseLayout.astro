@@ -2,15 +2,66 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import {
+  ANCHOR_PHRASE,
+  CONTACT_EMAIL,
+  FOUNDER,
+  LEGAL_NAME,
+  LINKEDIN_URL,
+  LOCATION,
+  SITE_URL,
+  TRADING_NAME,
+} from "../config/site";
 
 interface Props {
   title: string;
   description?: string;
+  /** Absolute or root-relative path to a social share image. */
+  image?: string;
+  /** Extra JSON-LD for this page, e.g. FAQPage or Person. */
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  /** Set true to keep a page out of search results while it is unfinished. */
+  noindex?: boolean;
 }
+
 const {
   title,
-  description = "AI Fluency for Professionals — one-to-one coaching and workshops.",
+  description = `${ANCHOR_PHRASE}. Practical AI training and consultancy for managers who need their teams using AI properly.`,
+  image = "/logo-avatar.png",
+  schema,
+  noindex = false,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
+const socialImage = new URL(image, Astro.site ?? SITE_URL);
+
+// Site-wide entity. The `description` field carries the anchor phrase
+// verbatim, matching LinkedIn, Facebook and Substack — see Section 5.3.
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: TRADING_NAME,
+  legalName: LEGAL_NAME,
+  description: ANCHOR_PHRASE,
+  url: SITE_URL,
+  email: CONTACT_EMAIL,
+  logo: new URL("/logo-avatar.png", SITE_URL).href,
+  sameAs: [LINKEDIN_URL],
+  founder: {
+    "@type": "Person",
+    "@id": `${SITE_URL}/about#person`,
+    name: FOUNDER,
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: LOCATION.city,
+    addressCountry: LOCATION.countryCode,
+  },
+};
+
+const pageSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const allSchemas = [organizationSchema, ...pageSchemas];
 ---
 
 <!doctype html>
@@ -21,6 +72,23 @@ const {
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href="/logo-avatar.png" />
+    <link rel="canonical" href={canonical.href} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={TRADING_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={socialImage.href} />
+    <meta property="og:locale" content="en_GB" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage.href} />
 
     <!-- Google Fonts: Fraunces (headings) + Plus Jakarta Sans (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,6 +99,15 @@ const {
     />
 
     <title>{title}</title>
+
+    {
+      allSchemas.map((s) => (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(s)}
+        />
+      ))
+    }
   </head>
   <body>
     <Header />

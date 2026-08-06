@@ -2,25 +2,70 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import { ANCHOR_PHRASE, TRADING_NAME, booking } from "../config/site";
+
+/* ------------------------------------------------------------------ */
+/*  NOTE ON THE MISSING TESTIMONIALS SECTION                           */
+/*                                                                     */
+/*  The scaffold had two testimonials attributed to "Name              */
+/*  Placeholder". They have been deleted rather than filled, because   */
+/*  no testimonials exist yet (§6.1). Inventing social proof would     */
+/*  fail the claim check in §2.5 and this audience would spot it.      */
+/*                                                                     */
+/*  In its place sits the honest-credibility band below, which answers */
+/*  the "why you, with no clients to point to" objection directly      */
+/*  (§1.4). Replace that section with real testimonials once they      */
+/*  exist — do not reinstate the placeholder markup.                   */
+/* ------------------------------------------------------------------ */
 
 const services = [
-  { title: "Service One", text: "Placeholder description for the first service offering." },
-  { title: "Service Two", text: "Placeholder description for the second service offering." },
-  { title: "Service Three", text: "Placeholder description for the third service offering." },
+  {
+    title: "Half-Day Workshop",
+    text: "A focused half day for your team, built around their own work. Everyone leaves having finished something real, not having watched a demonstration.",
+    meta: "$2,500 · up to 15 people",
+  },
+  {
+    title: "Small Group Workshop",
+    text: "The same half day for four or five people. Small enough to stay hands-on, and often the right first step before committing a whole department.",
+    meta: "$350 per person · 4–5 people",
+  },
+  {
+    title: "One-to-One Coaching",
+    text: "Ninety minutes built entirely around your own work. You leave having used Claude to complete a real task from your job.",
+    meta: "$175 · per session",
+  },
 ];
 
-const testimonials = [
-  { quote: "Placeholder testimonial quote goes here, two lines or so of warm praise.", name: "Name Placeholder", role: "Role, Company" },
-  { quote: "A second placeholder testimonial quote sitting alongside the first one.", name: "Name Placeholder", role: "Role, Company" },
+const credibility = [
+  {
+    heading: "The method is published in full",
+    text: "Every session structure, timing and outcome is on the Services page. You can see exactly what happens before you spend anything.",
+  },
+  {
+    heading: "The first conversation is free",
+    text: "Thirty minutes, no obligation. If the fit is wrong, I will tell you, and you will have lost half an hour.",
+  },
+  {
+    heading: "Forty-five years of leading change",
+    text: "Theatre, thirteen years at Ericsson across Southeast Asia, then film. The technology is new. Getting people to work differently is not.",
+  },
 ];
 ---
 
-<BaseLayout title="The AI Practitioner — AI Fluency for Professionals">
+<BaseLayout title={`${TRADING_NAME} — ${ANCHOR_PHRASE}`}>
   <!-- 1. Hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
+          {/* The anchor phrase leads the page, matching the LinkedIn headline
+              word for word. First visible text, and the entity description an
+              engine reads first. Do not reword it here alone. */}
+          <p
+            class="font-body font-medium text-[14px] uppercase tracking-[0.08em] text-aip-teal mb-4"
+          >
+            {ANCHOR_PHRASE}
+          </p>
           <h1
             class="font-heading font-bold text-aip-navy text-[40px] md:text-display leading-[1.1]"
           >
@@ -29,17 +74,19 @@ const testimonials = [
           <p
             class="font-body font-light text-[18px] text-aip-grey leading-relaxed mt-6 max-w-[560px]"
           >
-            One-to-one coaching and workshops for professionals who want to use
-            Claude for real work.
+            Practical AI training and consultancy for managers who need their
+            teams using AI properly.
           </p>
           <div class="flex flex-wrap gap-4 mt-8">
-            <Button variant="primary" href="/book">Book a session</Button>
-            <Button variant="secondary" href="#how-it-works"
-              >See how it works</Button
-            >
+            <Button variant="primary" href={booking.discoveryCall}>
+              Book a free discovery call
+            </Button>
+            <Button variant="secondary" href="/services">
+              See services and pricing
+            </Button>
           </div>
         </div>
-        <!-- Right column: placeholder for photoshoot image -->
+        <!-- Photoshoot image — external dependency, §6.7 item 7 -->
         <div
           class="aspect-[4/3] rounded-lg bg-aip-cloud border border-aip-cloud flex items-center justify-center"
         >
@@ -51,60 +98,96 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- 2. Services preview (Light Cloud) -->
+  <!-- 2. The problem (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 pb-20">
+      <div class="max-w-[720px]">
+        <SectionHeading
+          eyebrow="The gap"
+          heading="Your team has the software. They are not using it."
+          class="mb-6"
+        />
+        <p class="font-body font-light text-[16px] text-aip-grey">
+          Most organisations have already paid for the tools. What is missing is
+          the confidence to use them on the work that actually matters — the
+          recurring, awkward, judgement-heavy jobs where the time really goes.
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+          That gap is rarely technical. People stall because nobody has said out
+          loud what is allowed, because the first attempt was disappointing, or
+          because it feels like something everyone else already understands.
+          Those are change management problems, and they are solvable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Services preview (Light Cloud) -->
   <section id="how-it-works" class="bg-aip-cloud">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
       <SectionHeading
         eyebrow="What I offer"
-        heading="Services preview"
-        subtext="Placeholder intro text for the services section."
+        heading="Training built around your own work"
+        subtext="No coding, no prior AI experience, and nothing that depends on buying new software. Prices are published, because you should not have to ask."
         align="center"
         class="mb-12"
       />
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         {
           services.map((s) => (
-            <div class="bg-aip-white border border-aip-cloud rounded-lg p-7">
+            <div class="bg-aip-white border border-aip-cloud rounded-lg p-7 flex flex-col">
               <h3 class="font-heading font-semibold text-h3 text-aip-navy">
                 {s.title}
               </h3>
               <p class="font-body font-light text-[16px] text-aip-grey mt-3">
                 {s.text}
               </p>
+              <p class="font-body font-medium text-[14px] text-aip-navy mt-auto pt-5">
+                {s.meta}
+              </p>
             </div>
           ))
         }
       </div>
-    </div>
-  </section>
-
-  <!-- 3. Testimonials (White) -->
-  <section class="bg-aip-white">
-    <div class="mx-auto max-w-[1200px] px-6 py-20">
-      <SectionHeading
-        eyebrow="In their words"
-        heading="Testimonials"
-        align="center"
-        class="mb-12"
-      />
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {
-          testimonials.map((t) => (
-            <figure class="border border-aip-cloud rounded-lg p-7">
-              <blockquote class="font-heading italic text-[18px] text-aip-navy leading-relaxed">
-                “{t.quote}”
-              </blockquote>
-              <figcaption class="mt-5 font-body text-[14px] text-aip-grey">
-                <span class="font-medium text-aip-navy">{t.name}</span> — {t.role}
-              </figcaption>
-            </figure>
-          ))
-        }
+      <div class="text-center mt-10">
+        <Button variant="secondary" href="/services">
+          See all services and pricing
+        </Button>
       </div>
     </div>
   </section>
 
-  <!-- 4. CTA band (Deep Navy) -->
+  <!-- 4. Honest credibility (White) — replaces the deleted testimonials -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <SectionHeading
+        eyebrow="Why me"
+        heading="The AI Practitioner is new, and the rate reflects that"
+        subtext="There are no client logos on this page because there are no clients to point to yet. Rather than borrow someone else's credibility, here is what I can offer instead."
+        align="center"
+        class="mb-12 max-w-[720px] mx-auto"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {
+          credibility.map((c) => (
+            <div class="border-t-[1.5px] border-aip-teal pt-5">
+              <h3 class="font-heading font-semibold text-h4 text-aip-navy">
+                {c.heading}
+              </h3>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-2">
+                {c.text}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="text-center mt-12">
+        <Button variant="secondary" href="/about">Read the full story</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CTA band (Deep Navy) -->
   <section class="bg-aip-navy">
     <div class="mx-auto max-w-[1200px] px-6 py-20 text-center">
       <h2 class="font-heading font-bold text-h2 text-aip-white">
@@ -113,10 +196,13 @@ const testimonials = [
       <p
         class="font-body font-light text-[16px] text-aip-white/80 mt-4 max-w-[600px] mx-auto"
       >
-        Placeholder closing line inviting visitors to take the next step.
+        Start with a free 30-minute conversation about where your team is now
+        and what you want them to be able to do. No obligation, no jargon.
       </p>
       <div class="mt-8">
-        <Button variant="primary" href="/book">Book a session</Button>
+        <Button variant="primary" href={booking.discoveryCall}>
+          Book a free discovery call
+        </Button>
       </div>
     </div>
   </section>

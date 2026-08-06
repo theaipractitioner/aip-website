@@ -1,0 +1,65 @@
+# The AI Practitioner — https://theaipractitioner.ai
+#
+# AI answer engines are a primary discovery channel for this business, not an
+# afterthought, so their crawlers are allowed explicitly rather than left to
+# the wildcard. Named individually because a blanket Allow is easy to undo by
+# accident, and because being cited by these engines is the point.
+
+# --- AI answer engines and training crawlers ---------------------------
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# --- Everyone else ------------------------------------------------------
+
+User-agent: *
+Allow: /
+
+# Hidden until the 1 September full launch: /blog has no real posts and
+# /book has no booking integration. Remove these two lines when both ship.
+Disallow: /blog
+Disallow: /book
+
+Sitemap: https://theaipractitioner.ai/sitemap-index.xml

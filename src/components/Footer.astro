@@ -1,13 +1,13 @@
 ---
 import Logo from "./Logo.astro";
+import {
+  ANCHOR_PHRASE,
+  CONTACT_EMAIL,
+  LOCATION,
+  TRADING_NAME,
+  visibleNavLinks as navLinks,
+} from "../config/site";
 
-const navLinks = [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Book", href: "/book" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-];
 const year = 2026;
 ---
 
@@ -18,7 +18,7 @@ const year = 2026;
       <div>
         <Logo variant="dark" class="text-lg" />
         <p class="mt-4 font-body font-light text-[16px] text-aip-white/80">
-          AI Fluency for Professionals
+          {ANCHOR_PHRASE}
         </p>
       </div>
 
@@ -35,7 +35,7 @@ const year = 2026;
               <li>
                 <a
                   href={link.href}
-                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors"
+                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors inline-block py-1"
                 >
                   {link.label}
                 </a>
@@ -45,7 +45,7 @@ const year = 2026;
         </ul>
       </div>
 
-      <!-- Column 3: contact placeholder -->
+      <!-- Column 3: contact -->
       <div>
         <p
           class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-white/60 mb-4"
@@ -53,17 +53,22 @@ const year = 2026;
           Contact
         </p>
         <p class="font-body font-light text-[16px] text-aip-white/80">
-          hello@theaipractitioner.ai
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            class="hover:text-aip-white transition-colors wrap-anywhere inline-block py-1"
+          >
+            {CONTACT_EMAIL}
+          </a>
         </p>
         <p class="font-body font-light text-[16px] text-aip-white/80 mt-2">
-          [Contact details to come]
+          {LOCATION.city}, {LOCATION.country}
         </p>
       </div>
     </div>
 
     <div class="mt-16 pt-8 border-t border-aip-white/15">
       <p class="font-body font-light text-[14px] text-aip-white/60">
-        © {year} The AI Practitioner. All rights reserved.
+        © {year} {TRADING_NAME}. All rights reserved.
       </p>
     </div>
   </div>

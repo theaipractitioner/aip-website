@@ -13,7 +13,9 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 });
 ---
 
-<BaseLayout title="Blog — The AI Practitioner">
+<!-- Hidden until the 1 September full launch: no real posts yet. Remove
+     `noindex` and flip `softLaunch` in src/config/site.ts when it ships. -->
+<BaseLayout title="Blog — The AI Practitioner" noindex>
   <!-- Page hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
@@ -22,7 +24,7 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
       >
         Blog
       </p>
-      <h1 class="font-heading font-bold text-h1 text-aip-navy">
+      <h1 class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy">
         Notes &amp; ideas
       </h1>
       <p

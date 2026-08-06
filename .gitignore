@@ -17,6 +17,12 @@ pnpm-debug.log*
 .env
 .env.production
 
+# Cloudflare Pages local secrets — holds NOTION_TOKEN when testing
+# Pages Functions via `wrangler pages dev`. Must never be committed.
+.dev.vars
+.dev.vars.*
+.wrangler/
+
 # macOS-specific files
 .DS_Store
 

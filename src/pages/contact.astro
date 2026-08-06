@@ -1,10 +1,35 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import {
+  ANCHOR_PHRASE,
+  CONTACT_EMAIL,
+  LINKEDIN_URL,
+  LOCATION,
+  TRADING_NAME,
+  booking,
+} from "../config/site";
+
+/* ------------------------------------------------------------------ */
+/*  The form POSTs to /api/contact, a Cloudflare Pages Function that   */
+/*  writes to the Notion CRM (§6.4) — a Contact in DB01 and a related  */
+/*  Interaction in DB05. That function needs NOTION_TOKEN set in the   */
+/*  Cloudflare dashboard.                                              */
+/*                                                                     */
+/*  Until it is, the endpoint returns 503 and the script below falls   */
+/*  back to showing the email address rather than failing silently. A  */
+/*  form that swallows an enquiry is worse than no form. The endpoint  */
+/*  also does not exist under `astro dev` — Pages Functions only run   */
+/*  on Cloudflare — so expect the fallback locally.                    */
+/* ------------------------------------------------------------------ */
 ---
 
-<BaseLayout title="Contact — The AI Practitioner">
-  <!-- Page hero (White) -->
+<BaseLayout
+  title={`Contact — ${TRADING_NAME}`}
+  description={`Get in touch about AI training for your team. Based in Siem Reap, Cambodia, working across Asia and Australasia. ${ANCHOR_PHRASE}.`}
+>
+  <!-- 1. Hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
       <p
@@ -12,68 +37,207 @@ import Button from "../components/Button.astro";
       >
         Contact
       </p>
-      <h1 class="font-heading font-bold text-h1 text-aip-navy">Get in touch</h1>
+      <h1 class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy">Get in touch</h1>
       <p
-        class="font-body font-light text-[18px] text-aip-grey mt-4 max-w-[560px]"
+        class="font-body font-light text-[18px] text-aip-grey mt-5 max-w-[620px] leading-relaxed"
       >
-        Placeholder subtext inviting visitors to reach out.
+        If you know you want to talk, book the free discovery call — it is the
+        fastest route and costs you nothing. If you would rather write first,
+        the form below reaches me directly.
       </p>
+      <div class="mt-8">
+        <Button variant="primary" href={booking.discoveryCall}>
+          Book a free discovery call
+        </Button>
+      </div>
     </div>
   </section>
 
-  <!-- Contact form (Light Cloud) — placeholder, no action -->
+  <!-- 2. Form + direct details (Light Cloud) -->
   <section class="bg-aip-cloud">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
-      <form class="max-w-[560px] flex flex-col gap-6">
-        <div class="flex flex-col gap-2">
-          <label
-            for="name"
-            class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
-            >Name</label
-          >
-          <input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Your name"
-            class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3"
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Form -->
+        <div class="md:col-span-2">
+          <SectionHeading
+            eyebrow="Send a message"
+            heading="Tell me what you are trying to solve"
+            subtext="The more you tell me about the actual problem, the more useful my reply will be. I answer everything personally, usually within one working day."
+            class="mb-8"
           />
+
+          <form id="contact-form" class="max-w-[560px] flex flex-col gap-6" novalidate>
+            <div class="flex flex-col gap-2">
+              <label
+                for="name"
+                class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
+                >Name</label
+              >
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                autocomplete="name"
+                class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label
+                for="organisation"
+                class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
+                >Organisation <span class="normal-case tracking-normal font-light text-aip-grey">(optional)</span></label
+              >
+              <input
+                id="organisation"
+                name="organisation"
+                type="text"
+                autocomplete="organization"
+                class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label
+                for="email"
+                class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
+                >Email</label
+              >
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label
+                for="message"
+                class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                name="message"
+                rows="6"
+                required
+                class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3 resize-y"
+              ></textarea>
+            </div>
+
+            {/* Honeypot — hidden from people, tempting to bots. */}
+            <div class="hidden" aria-hidden="true">
+              <label for="website">Leave this field empty</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div>
+              <Button variant="primary" type="submit" class="w-full sm:w-auto">
+                Send message
+              </Button>
+            </div>
+
+            <p
+              id="form-status"
+              role="status"
+              aria-live="polite"
+              class="font-body text-[15px] hidden"
+            >
+            </p>
+          </form>
         </div>
 
-        <div class="flex flex-col gap-2">
-          <label
-            for="email"
-            class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
-            >Email</label
+        <!-- Direct details -->
+        <aside class="md:border-l md:border-aip-white md:pl-10">
+          <p
+            class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-4"
           >
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="you@example.com"
-            class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3"
-          />
-        </div>
+            Or reach me directly
+          </p>
 
-        <div class="flex flex-col gap-2">
-          <label
-            for="message"
-            class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-navy"
-            >Message</label
-          >
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            placeholder="How can I help?"
-            class="font-body text-[16px] text-aip-grey bg-aip-white border border-aip-cloud rounded-md px-4 py-3 resize-y"
-          ></textarea>
-        </div>
+          <p class="font-body font-medium text-[14px] text-aip-navy">Email</p>
+          <p class="font-body font-light text-[16px] mb-6">
+            {/* wrap-anywhere: an email address has no spaces to break at,
+                so it overflows a narrow column without this. */}
+            <a
+              href={`mailto:${CONTACT_EMAIL}`}
+              class="hover:underline wrap-anywhere inline-block py-1"
+            >
+              {CONTACT_EMAIL}
+            </a>
+          </p>
 
-        <div>
-          <Button variant="primary" type="submit">Send message</Button>
-        </div>
-      </form>
+          <p class="font-body font-medium text-[14px] text-aip-navy">LinkedIn</p>
+          <p class="font-body font-light text-[16px] mb-6">
+            <a href={LINKEDIN_URL} class="hover:underline inline-block py-1">
+              Tim Parkin
+            </a>
+          </p>
+
+          <p class="font-body font-medium text-[14px] text-aip-navy">Based in</p>
+          <p class="font-body font-light text-[16px] text-aip-grey mb-6">
+            {LOCATION.city}, {LOCATION.country}<br />
+            Indochina Time, UTC+7
+          </p>
+
+          <p class="font-body font-light text-[15px] text-aip-grey">
+            I work across Southeast Asia and Australasia in normal business
+            hours, and reach the UK and Europe from mid-afternoon.
+          </p>
+        </aside>
+      </div>
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline define:vars={{ CONTACT_EMAIL }}>
+  const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
+  const button = form?.querySelector('button[type="submit"]');
+
+  const show = (msg, ok) => {
+    status.innerHTML = msg;
+    status.className = `font-body text-[15px] ${
+      ok ? "text-aip-teal" : "text-aip-amber"
+    }`;
+    status.classList.remove("hidden");
+  };
+
+  // Shown whenever the enquiry did not reach Notion, for any reason.
+  const fallback = `Sorry — the form could not send. Please email
+    <a class="underline" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
+    and I will pick it up.`;
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+
+    if (!data.name?.trim() || !data.email?.trim() || !data.message?.trim()) {
+      show("Please fill in your name, email and message.", false);
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Sending…";
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset();
+      show("Thank you — that has reached me. I will reply within one working day.", true);
+      button.textContent = "Sent";
+    } catch {
+      show(fallback, false);
+      button.disabled = false;
+      button.textContent = "Send message";
+    }
+  });
+</script>

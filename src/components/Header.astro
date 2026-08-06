@@ -1,13 +1,6 @@
 ---
 import Logo from "./Logo.astro";
-
-const navLinks = [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Book", href: "/book" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-];
+import { visibleNavLinks as navLinks } from "../config/site";
 ---
 
 <header class="sticky top-0 z-50 bg-aip-white border-b border-aip-cloud">
@@ -24,7 +17,7 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
-            class="font-body font-medium text-[14px] text-aip-grey hover:text-aip-teal transition-colors"
+            class="font-body font-medium text-[14px] text-aip-grey hover:text-aip-teal transition-colors py-2"
           >
             {link.label}
           </a>
@@ -56,7 +49,7 @@ const navLinks = [
         navLinks.map((link) => (
           <a
             href={link.href}
-            class="font-body font-medium text-[14px] text-aip-grey hover:text-aip-teal transition-colors"
+            class="font-body font-medium text-[14px] text-aip-grey hover:text-aip-teal transition-colors py-2"
           >
             {link.label}
           </a>

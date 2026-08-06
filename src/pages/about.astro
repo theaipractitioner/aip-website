@@ -1,53 +1,235 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import {
+  ANCHOR_PHRASE,
+  COMPANY_NAME,
+  FOUNDER,
+  LINKEDIN_URL,
+  LOCATION,
+  SITE_URL,
+  TRADING_NAME,
+  booking,
+} from "../config/site";
+
+/* ------------------------------------------------------------------ */
+/*  The founder story is the strongest credibility asset the business  */
+/*  owns (§1.4) and the substitute for case studies it does not yet    */
+/*  have. Every claim below is verifiable. Nothing is embellished —    */
+/*  inventing proof here would fail the claim check in §2.5.           */
+/*                                                                     */
+/*  The opening line is the LinkedIn headline, near enough verbatim,   */
+/*  for entity consistency (§5.3).                                     */
+/* ------------------------------------------------------------------ */
+
+const career = [
+  {
+    period: "Theatre",
+    heading: "Professional theatre",
+    text: "A career that began in the theatre, where a production either works on the night or it does not. It teaches you to read a room, to notice when people have stopped following, and to change what you are doing before the whole thing comes apart.",
+  },
+  {
+    period: "13 years",
+    heading: "Ericsson, across Southeast Asia",
+    text: "Thirteen years in senior management at Ericsson, working in Bangladesh, Malaysia, Vietnam and the Philippines. Large organisations, complex change, and teams who had every reason to be sceptical of the latest thing head office was enthusiastic about.",
+  },
+  {
+    period: "9 years",
+    heading: "Film",
+    text: "Nine years in film, on productions including Dunkirk and Wonder Woman. Enormous crews, immovable deadlines, and a daily lesson in how skilled people work together under real pressure.",
+  },
+  {
+    period: "At 70",
+    heading: "Learning AI from scratch",
+    text: "Then, in retirement and with no technical background, learning to use Claude properly. Not as a demonstration and not as a hobby, but as a working tool — which is why the training does not assume you have missed something everyone else already understands.",
+  },
+];
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${SITE_URL}/about#person`,
+  name: FOUNDER,
+  jobTitle: "AI Trainer and Consultant",
+  description:
+    "Founder of The AI Practitioner. A 45-year career leading people through change across professional theatre, thirteen years at Ericsson in Bangladesh, Malaysia, Vietnam and the Philippines, and nine years in film — then learning AI from scratch at 70, with no technical background.",
+  url: `${SITE_URL}/about`,
+  sameAs: [LINKEDIN_URL],
+  worksFor: { "@id": `${SITE_URL}/#organization` },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: LOCATION.city,
+    addressCountry: LOCATION.countryCode,
+  },
+  knowsAbout: [
+    "AI training",
+    "AI adoption",
+    "Change management",
+    "Professional development",
+  ],
+};
 ---
 
-<BaseLayout title="About — The AI Practitioner">
-  <!-- Hero (White) -->
+<BaseLayout
+  title={`About Tim Parkin — ${TRADING_NAME}`}
+  description="Tim Parkin learned AI from scratch at 70, with no technical background, after 45 years leading people through change in theatre, at Ericsson across Southeast Asia, and in film. Based in Siem Reap, Cambodia."
+  schema={personSchema}
+>
+  <!-- 1. Hero (White) -->
   <section class="bg-aip-white">
-    <div class="mx-auto max-w-[1200px] px-6 py-20">
-      <p
-        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
-      >
-        About
-      </p>
-      <h1 class="font-heading font-bold text-h1 text-aip-navy">Tim Parkin</h1>
-      <p
-        class="font-body font-light text-[18px] text-aip-grey mt-4 max-w-[560px]"
-      >
-        Placeholder subtext introducing who Tim is and what he does.
-      </p>
+    <div class="mx-auto max-w-[1200px] px-6 py-20 md:py-24">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p
+            class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+          >
+            About
+          </p>
+          <h1 class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy">
+            {FOUNDER}
+          </h1>
+          <p
+            class="font-body font-light text-[18px] text-aip-grey mt-5 max-w-[560px] leading-relaxed"
+          >
+            I learned Claude at 70, in retirement, with no technical
+            background — after 45 years leading people through change in
+            theatre, at Ericsson and in film.
+          </p>
+          <p
+            class="font-body font-light text-[16px] text-aip-grey mt-4 max-w-[560px]"
+          >
+            That is the whole reason this works. I am not a technologist
+            explaining AI to you. I am someone who learned it late, from the
+            same starting point you are on now.
+          </p>
+          <div class="mt-8">
+            <Button variant="primary" href={booking.discoveryCall}>
+              Book a free discovery call
+            </Button>
+          </div>
+        </div>
+
+        <!-- Photoshoot image — external dependency, §6.7 item 7 -->
+        <div
+          class="aspect-[4/5] rounded-lg bg-aip-cloud border border-aip-cloud flex items-center justify-center"
+        >
+          <span class="font-body text-[14px] text-aip-grey/50">
+            [ Photo to come ]
+          </span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Story (Light Cloud) -->
+  <!-- 2. The story (Light Cloud) -->
   <section class="bg-aip-cloud">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        <div>
-          <SectionHeading
-            eyebrow="The story"
-            heading="How I got here"
-            class="mb-6"
-          />
-          <p class="font-body font-light text-[16px] text-aip-grey">
-            Placeholder paragraph one. Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit, sed do eiusmod tempor incididunt ut labore.
-          </p>
-          <p class="font-body font-light text-[16px] text-aip-grey mt-4">
-            Placeholder paragraph two. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-          </p>
-        </div>
-        <!-- Placeholder image block -->
-        <div
-          class="aspect-[4/5] rounded-lg bg-aip-white border border-aip-cloud flex items-center justify-center"
-        >
-          <span class="font-body text-[14px] text-aip-grey/50"
-            >[ Photo to come ]</span
-          >
-        </div>
+      <SectionHeading
+        eyebrow="The story"
+        heading="How I got here"
+        subtext="Four careers, none of them technical. What connects them is that every one was about getting people to do something new, and doing it well enough that it stuck."
+        class="mb-14 max-w-[720px]"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          career.map((c) => (
+            <article class="bg-aip-white border border-aip-cloud rounded-lg p-7 md:p-8">
+              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal">
+                {c.period}
+              </p>
+              <h2 class="font-heading font-semibold text-h3 text-aip-navy mt-2 leading-snug">
+                {c.heading}
+              </h2>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-3">
+                {c.text}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Why it matters (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <div class="max-w-[720px]">
+        <SectionHeading
+          eyebrow="Why this matters to you"
+          heading="The hard part is people, not software"
+          class="mb-6"
+        />
+        <p class="font-body font-light text-[16px] text-aip-grey">
+          Most AI training assumes the difficulty is technical. In my
+          experience it almost never is. Teams stall because people are
+          uncertain, because nobody has said out loud what is and is not
+          allowed, and because the first attempt produced something
+          disappointing and nobody went back for a second.
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+          Those are change management problems. They are what I spent forty-five
+          years doing, long before any of this existed. The technology is the
+          straightforward half.
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+          It also means I take your existing expertise seriously. The skills
+          that make you good at your job — judgement, clear thinking, knowing
+          what finished work looks like — are exactly the skills that make
+          someone good at this. You have not missed the boat. You are better
+          placed than you think.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Where I work (Light Cloud) — also answers §5.2 question 9 -->
+  <section class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <div class="max-w-[720px]">
+        <SectionHeading
+          eyebrow="Where I work"
+          heading="Based in Siem Reap, working across the region"
+          class="mb-6"
+        />
+        <p class="font-body font-light text-[16px] text-aip-grey">
+          I live and work in {LOCATION.city}, {LOCATION.country}, and deliver
+          training in person across Cambodia and the wider region, and online
+          throughout Asia and Australasia. My working day runs on Indochina
+          Time, UTC+7, which covers Southeast Asia and Australasia in normal
+          business hours and reaches the UK and Europe from mid-afternoon.
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+          The thirteen years at Ericsson were spent in this part of the world —
+          Bangladesh, Malaysia, Vietnam and the Philippines. I have led change
+          in these markets before, which is not something most AI trainers can
+          say from an office in Europe.
+        </p>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+          {TRADING_NAME} is the trading name of {COMPANY_NAME}, a
+          UK-registered company.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CTA band (Deep Navy) -->
+  <section class="bg-aip-navy">
+    <div class="mx-auto max-w-[1200px] px-6 py-20 text-center">
+      <h2 class="font-heading font-bold text-h2 text-aip-white">
+        {ANCHOR_PHRASE}
+      </h2>
+      <p
+        class="font-body font-light text-[16px] text-aip-white/80 mt-4 max-w-[620px] mx-auto"
+      >
+        Thirty minutes, free, no obligation. Bring the problem you are actually
+        trying to solve and we will work out whether I can help.
+      </p>
+      <div class="mt-8">
+        <Button variant="primary" href={booking.discoveryCall}>
+          Book a free discovery call
+        </Button>
       </div>
     </div>
   </section>

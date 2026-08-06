@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { ANCHOR_PHRASE, TRADING_NAME } from "../config/site";
+
+/* ------------------------------------------------------------------ */
+/*  The ten questions the ICP actually asks (Marketing Plan §5.2).     */
+/*                                                                     */
+/*  Each answer is written to be quotable in isolation: 40–60 words,   */
+/*  answering the question completely without needing the rest of the  */
+/*  page. That is what gets a passage cited by an AI answer engine.    */
+/*  Keep that constraint if you edit these.                            */
+/* ------------------------------------------------------------------ */
+
+const faqs = [
+  {
+    q: "How do I get my team actually using AI?",
+    a: "Start with one team and real work, not a tool rollout. Most teams already have the software; what is missing is the confidence to use it on the tasks they actually do. Pick a genuine piece of work, train on that, and let people leave having finished something.",
+  },
+  {
+    q: "What is the best AI training for managers?",
+    a: "The training that fits your team's real work, rather than a generic curriculum. Look for sessions built around tasks your people already do, delivered without coding, and structured so participants complete real work during the session itself. Ask any provider to show you their session structure before you book.",
+  },
+  {
+    q: "How do I introduce AI to a team that is resistant?",
+    a: "Treat the resistance as reasonable, because it usually is. This is a change management problem rather than a technology one. Build the sessions around the expertise people already have, so the message is that their judgement matters more, not less. Start with the willing and let results persuade the rest.",
+  },
+  {
+    q: "Is there AI training for non-technical staff?",
+    a: "Yes. No coding and no prior AI experience are required. The skills that make someone good at their job — judgement, clear thinking, knowing what good looks like — are the same skills that make them good at using AI. Training for non-technical professionals is the core of this practice.",
+  },
+  {
+    q: "How much does AI training for a team cost?",
+    a: "Corporate training for up to fifteen people is $2,500 for a half day and $4,000 for a full day. Small-group workshops are $350 per person and one-to-one coaching is $175, all in US dollars and net of local taxes. Team rates depend on size and scope, confirmed after a free discovery call.",
+  },
+  {
+    q: "We tried AI and the results were poor. What did we do wrong?",
+    a: "Probably nothing structural. Poor results are usually a prompting and framing problem rather than a tool problem, because vague requests produce vague output. Most teams also stop at the first disappointing answer instead of treating it as a first draft. That is the specific gap this training closes.",
+  },
+  {
+    q: "Will AI replace my team's jobs?",
+    a: "The honest answer is that AI changes what a job involves rather than removing the need for judgement. Work that depends on knowing your field, your clients and your context becomes more valuable, not less. The real risk is not the technology; it is a team that never learns to direct it.",
+  },
+  {
+    q: "How do I write an AI usage policy for my team?",
+    a: "Keep it short and practical. Cover what may and may not be put into a model, who signs off on AI-assisted work before it leaves the organisation, and where people go with questions. A policy your team remembers beats a comprehensive one nobody reads. Sessions cover this in plain terms.",
+  },
+  {
+    q: "Where can I find AI training in Cambodia or Southeast Asia?",
+    a: "The AI Practitioner is based in Siem Reap, Cambodia, and delivers in person across Cambodia and the wider region, and online throughout Asia and Australasia. Working hours run on Indochina Time, UTC+7. The business trades as Groundframe Ltd, a UK-registered company.",
+  },
+  {
+    q: "Is there AI training for NGOs?",
+    a: "Yes, and it is a deliberate focus. AI literacy is fast becoming a professional expectation across the development sector. Sessions are built around the work NGO teams actually do — reporting, proposals, donor communication and research — rather than generic examples. Reduced rates are available for registered NGOs in Cambodia.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  title={`Frequently Asked Questions — ${TRADING_NAME}`}
+  description={`Straight answers on AI training for teams: cost, resistance, non-technical staff, usage policies and delivery across Southeast Asia. ${ANCHOR_PHRASE}.`}
+  schema={faqSchema}
+>
+  <!-- 1. Intro (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20 md:py-24">
+      <SectionHeading
+        eyebrow="Questions"
+        heading="Frequently asked questions"
+        subtext="The questions managers ask most often, answered directly. If yours is not here, ask it on a free 30-minute discovery call."
+        class="max-w-[720px]"
+      />
+    </div>
+  </section>
+
+  <!-- 2. The questions (Light Cloud) -->
+  <section class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <div class="max-w-[760px] flex flex-col gap-10">
+        {
+          faqs.map((item) => (
+            <article class="bg-aip-white border border-aip-cloud rounded-lg p-7 md:p-8">
+              <h2 class="font-heading font-semibold text-h3 text-aip-navy leading-snug">
+                {item.q}
+              </h2>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+                {item.a}
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CTA band (Deep Navy) -->
+  <section class="bg-aip-navy">
+    <div class="mx-auto max-w-[1200px] px-6 py-20 text-center">
+      <h2 class="font-heading font-bold text-h2 text-aip-white">
+        Still have a question?
+      </h2>
+      <p
+        class="font-body font-light text-[16px] text-aip-white/80 mt-4 max-w-[600px] mx-auto"
+      >
+        Thirty minutes, no cost and no obligation. Bring the problem you are
+        actually trying to solve.
+      </p>
+      <div class="mt-8">
+        <Button variant="primary" href="/contact">
+          Book a free discovery call
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
