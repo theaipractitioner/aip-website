@@ -38,7 +38,9 @@ export const LOCATION = {
 /*  favour of Acuity, every CTA changes here and nowhere else.         */
 /* ------------------------------------------------------------------ */
 
-const CAL = "https://cal.eu/etltmpn";
+// `www` is deliberate: cal.eu 301s to www.cal.eu, so omitting it costs
+// every booking CTA an extra redirect round trip.
+const CAL = "https://www.cal.eu/etltmpn";
 
 export const booking = {
   discoveryCall: `${CAL}/discovery-call`,

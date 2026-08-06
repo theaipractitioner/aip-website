@@ -174,3 +174,29 @@ the subscriber straight into the list that triggers the nurture sequence.
 
 Never commit any of these. The Notion token in particular grants write access
 to the CRM.
+
+---
+
+## Appendix — link audit, 6 August 2026
+
+All 14 link targets across the five soft-launch pages resolve. Re-run before
+launch, against the deployed domain rather than localhost.
+
+- 5 internal pages — all `200`
+- 6 Cal.com booking links — all `200`
+- `#for-individuals` anchor — target exists on `/services`
+- LinkedIn returns `999` to non-browser user agents. That is LinkedIn's
+  anti-scraping response, not a broken link — the profile loads normally in a
+  browser. Expect it on every future audit.
+
+### Hidden ≠ private on Cal.com
+
+`www.cal.eu/etltmpn/team-follow-up` is marked hidden, but **the direct URL
+still returns 200 and renders a bookable page**. "Hidden" only removes an event
+from the public profile listing.
+
+With no payment app connected this means anyone holding the link could book the
+$1,000 session for nothing. The website does not link to it — the Team Follow-Up
+CTA points at the discovery call — so there is no exposure from the site today.
+The same is true of every other unpriced event type, and those *are* listed
+publicly. Connect Stripe before promoting any of them.
