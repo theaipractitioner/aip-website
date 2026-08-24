@@ -1,8 +1,10 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { ANCHOR_PHRASE, TRADING_NAME, booking } from "../config/site";
+import { ANCHOR_PHRASE, FOUNDER, TRADING_NAME, booking } from "../config/site";
+import timParkinHero from "../assets/tim-parkin-hero.png";
 
 /* ------------------------------------------------------------------ */
 /*  NOTE ON THE MISSING TESTIMONIALS SECTION                           */
@@ -52,7 +54,7 @@ const credibility = [
 ];
 ---
 
-<BaseLayout title={`${TRADING_NAME} — ${ANCHOR_PHRASE}`}>
+<BaseLayout title={`${TRADING_NAME} | ${ANCHOR_PHRASE}`}>
   <!-- 1. Hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20 md:py-28">
@@ -62,7 +64,7 @@ const credibility = [
               word for word. First visible text, and the entity description an
               engine reads first. Do not reword it here alone. */}
           <p
-            class="font-body font-medium text-[14px] uppercase tracking-[0.08em] text-aip-teal mb-4"
+            class="font-body font-medium text-[14px] uppercase tracking-[0.08em] text-aip-teal-deep mb-4"
           >
             {ANCHOR_PHRASE}
           </p>
@@ -86,13 +88,16 @@ const credibility = [
             </Button>
           </div>
         </div>
-        <!-- Photoshoot image — external dependency, §6.7 item 7 -->
         <div
-          class="aspect-[4/3] rounded-lg bg-aip-cloud border border-aip-cloud flex items-center justify-center"
+          class="aspect-[4/3] rounded-lg bg-aip-cloud border border-aip-cloud overflow-hidden"
         >
-          <span class="font-body text-[14px] text-aip-grey/50"
-            >[ Photo to come ]</span
-          >
+          <Image
+            src={timParkinHero}
+            alt={`${FOUNDER}, founder of ${TRADING_NAME}`}
+            width={1200}
+            height={900}
+            class="w-full h-full object-contain"
+          />
         </div>
       </div>
     </div>
@@ -109,7 +114,7 @@ const credibility = [
         />
         <p class="font-body font-light text-[16px] text-aip-grey">
           Most organisations have already paid for the tools. What is missing is
-          the confidence to use them on the work that actually matters — the
+          the confidence to use them on the work that actually matters: the
           recurring, awkward, judgement-heavy jobs where the time really goes.
         </p>
         <p class="font-body font-light text-[16px] text-aip-grey mt-4">

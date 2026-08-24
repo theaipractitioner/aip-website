@@ -1,7 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import timParkinAbout from "../assets/tim-parkin-about.png";
 import {
   ANCHOR_PHRASE,
   COMPANY_NAME,
@@ -42,7 +44,7 @@ const career = [
   {
     period: "At 70",
     heading: "Learning AI from scratch",
-    text: "Then, in retirement and with no technical background, learning to use Claude properly. Not as a demonstration and not as a hobby, but as a working tool — which is why the training does not assume you have missed something everyone else already understands.",
+    text: "Then, in retirement and with no technical background, learning to use Claude properly. Not as a demonstration and not as a hobby, but as a working tool. That is why the training does not assume you have missed something everyone else already understands.",
   },
 ];
 
@@ -53,7 +55,7 @@ const personSchema = {
   name: FOUNDER,
   jobTitle: "AI Trainer and Consultant",
   description:
-    "Founder of The AI Practitioner. A 45-year career leading people through change across professional theatre, thirteen years at Ericsson in Bangladesh, Malaysia, Vietnam and the Philippines, and nine years in film — then learning AI from scratch at 70, with no technical background.",
+    "Founder of The AI Practitioner. A 45-year career leading people through change across professional theatre, thirteen years at Ericsson in Bangladesh, Malaysia, Vietnam and the Philippines, and nine years in film. Then learning AI from scratch at 70, with no technical background.",
   url: `${SITE_URL}/about`,
   sameAs: [LINKEDIN_URL],
   worksFor: { "@id": `${SITE_URL}/#organization` },
@@ -72,7 +74,7 @@ const personSchema = {
 ---
 
 <BaseLayout
-  title={`About Tim Parkin — ${TRADING_NAME}`}
+  title={`About Tim Parkin | ${TRADING_NAME}`}
   description="Tim Parkin learned AI from scratch at 70, with no technical background, after 45 years leading people through change in theatre, at Ericsson across Southeast Asia, and in film. Based in Siem Reap, Cambodia."
   schema={personSchema}
 >
@@ -82,7 +84,7 @@ const personSchema = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
           <p
-            class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+            class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-3"
           >
             About
           </p>
@@ -93,7 +95,7 @@ const personSchema = {
             class="font-body font-light text-[18px] text-aip-grey mt-5 max-w-[560px] leading-relaxed"
           >
             I learned Claude at 70, in retirement, with no technical
-            background — after 45 years leading people through change in
+            background. That came after 45 years leading people through change in
             theatre, at Ericsson and in film.
           </p>
           <p
@@ -110,13 +112,16 @@ const personSchema = {
           </div>
         </div>
 
-        <!-- Photoshoot image — external dependency, §6.7 item 7 -->
         <div
-          class="aspect-[4/5] rounded-lg bg-aip-cloud border border-aip-cloud flex items-center justify-center"
+          class="aspect-[4/5] rounded-lg bg-aip-cloud border border-aip-cloud overflow-hidden"
         >
-          <span class="font-body text-[14px] text-aip-grey/50">
-            [ Photo to come ]
-          </span>
+          <Image
+            src={timParkinAbout}
+            alt={`${FOUNDER}, founder of ${TRADING_NAME}`}
+            width={800}
+            height={1000}
+            class="w-full h-full object-cover"
+          />
         </div>
       </div>
     </div>
@@ -136,7 +141,7 @@ const personSchema = {
         {
           career.map((c) => (
             <article class="bg-aip-white border border-aip-cloud rounded-lg p-7 md:p-8">
-              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal">
+              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
                 {c.period}
               </p>
               <h2 class="font-heading font-semibold text-h3 text-aip-navy mt-2 leading-snug">
@@ -175,8 +180,8 @@ const personSchema = {
         </p>
         <p class="font-body font-light text-[16px] text-aip-grey mt-4">
           It also means I take your existing expertise seriously. The skills
-          that make you good at your job — judgement, clear thinking, knowing
-          what finished work looks like — are exactly the skills that make
+          that make you good at your job (judgement, clear thinking, knowing
+          what finished work looks like) are exactly the skills that make
           someone good at this. You have not missed the boat. You are better
           placed than you think.
         </p>
@@ -201,7 +206,7 @@ const personSchema = {
           business hours and reaches the UK and Europe from mid-afternoon.
         </p>
         <p class="font-body font-light text-[16px] text-aip-grey mt-4">
-          The thirteen years at Ericsson were spent in this part of the world —
+          The thirteen years at Ericsson were spent in this part of the world:
           Bangladesh, Malaysia, Vietnam and the Philippines. I have led change
           in these markets before, which is not something most AI trainers can
           say from an office in Europe.

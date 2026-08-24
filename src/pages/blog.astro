@@ -15,12 +15,12 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
 
 <!-- Hidden until the 1 September full launch: no real posts yet. Remove
      `noindex` and flip `softLaunch` in src/config/site.ts when it ships. -->
-<BaseLayout title="Blog — The AI Practitioner" noindex>
+<BaseLayout title="Blog | The AI Practitioner" noindex>
   <!-- Page hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
       <p
-        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-3"
       >
         Blog
       </p>
@@ -42,7 +42,7 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
         {
           posts.map((post) => (
             <article class="bg-aip-white border border-aip-cloud rounded-lg p-7 flex flex-col">
-              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal">
+              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
                 {post.data.category}
               </p>
               <h3 class="font-heading font-semibold text-h3 text-aip-navy mt-3">

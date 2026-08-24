@@ -6,15 +6,20 @@
 @theme {
   /* Colours — exact brand tokens */
   --color-aip-navy: #1f3864; /* headings, hero backgrounds, footer */
-  --color-aip-teal: #209188; /* CTAs, links, hover states */
+  --color-aip-teal: #209188; /* fills, borders, focus rings, large type, logo 'I' */
   --color-aip-grey: #4a5568; /* body text */
   --color-aip-cloud: #f7f9fc; /* section fills, cards */
   --color-aip-white: #ffffff; /* page canvas */
   --color-aip-amber: #d97706; /* max one callout element per page */
 
-  /* Hover variants */
-  --color-aip-teal-hover: #1a7a73; /* primary button hover */
-  --color-aip-teal-tint: #e8f4f3; /* secondary button hover fill */
+  /* Derived teal states. Documented in brand kit v2.0, note dated 2026-08-09.
+     Warm Teal #209188 is 3.84:1 on white, below the WCAG AA 4.5:1 required for
+     normal-size text. It stays correct for fills, borders, focus rings, large
+     display type and the logo 'I', all of which clear the 3:1 UI threshold.
+     Teal Deep is 5.15:1 and carries teal TEXT at body and small sizes. It also
+     doubles as the primary button hover fill, which is where it started. */
+  --color-aip-teal-deep: #1a7a73; /* teal text below 18.66px; primary btn hover */
+  --color-aip-teal-tint: #e8f4f3; /* secondary button hover fill; surface wash */
 
   /* Fonts */
   --font-heading: "Fraunces", Georgia, serif;
@@ -53,7 +58,7 @@
   }
 
   a {
-    color: var(--color-aip-teal);
+    color: var(--color-aip-teal-deep); /* AA on white at body size */
   }
 
   /* Global focus ring — 2px Teal, 2px offset */

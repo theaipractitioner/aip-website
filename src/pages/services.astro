@@ -40,7 +40,7 @@ const organisational = [
     price: "$2,500",
     priceValue: 2500,
     priceNote: "for up to 15 people",
-    format: "3.5 hours — 9am–12:30pm or 1pm–4:30pm. In-house or via Zoom.",
+    format: "3.5 hours: 9am–12:30pm or 1pm–4:30pm. In-house or via Zoom.",
     href: booking.halfDay,
     cta: "Book a half-day workshop",
     featured: true,
@@ -48,13 +48,13 @@ const organisational = [
   {
     question: "We need more than half a day. What does that look like?",
     name: "Full Day Workshop",
-    lede: "The same approach with room to go further. A full day lets a team move past first tasks into the work that actually takes time — the recurring, awkward, judgement-heavy jobs where fluency pays for itself.",
+    lede: "The same approach with room to go further. A full day lets a team move past first tasks into the work that actually takes time: the recurring, awkward, judgement-heavy jobs where fluency pays for itself.",
     takeaway:
-      "Same takeaways as the half day — framework, decision model, reference pack and 30-day practice plan — with considerably more hands-on time on your own workflows.",
+      "Same takeaways as the half day (framework, decision model, reference pack and 30-day practice plan), with considerably more hands-on time on your own workflows.",
     price: "$4,000",
     priceValue: 4000,
     priceNote: "for up to 15 people",
-    format: "7 hours — 9am–5pm with a one-hour lunch. In-house or via Zoom.",
+    format: "7 hours: 9am–5pm with a one-hour lunch. In-house or via Zoom.",
     href: booking.fullDay,
     cta: "Book a full-day workshop",
     featured: false,
@@ -62,13 +62,13 @@ const organisational = [
   {
     question: "We're a small team. Is a full workshop overkill?",
     name: "Small Group Workshop",
-    lede: "A half-day workshop for up to five people — small enough to stay genuinely hands-on, big enough that people learn from each other's questions. Often the right first step before committing a whole department.",
+    lede: "A half-day workshop for up to five people: small enough to stay genuinely hands-on, big enough that people learn from each other's questions. Often the right first step before committing a whole department.",
     takeaway:
       "Each participant works on a real task from their own job, building practical AI fluency alongside colleagues rather than in isolation.",
     price: "$350",
     priceValue: 350,
     priceNote: "per person, for 4–5 people",
-    format: "3.5 hours — 9am–12:30pm or 1pm–4:30pm. In person or via Zoom.",
+    format: "3.5 hours: 9am–12:30pm or 1pm–4:30pm. In person or via Zoom.",
     href: booking.smallGroup,
     cta: "Book a small group workshop",
     featured: false,
@@ -106,7 +106,7 @@ const individual = [
   {
     question: "I've done a session and want to keep building.",
     name: "Follow-Up One-to-One",
-    lede: "A 60-minute follow-up for clients who have completed an initial session. Bring whatever you are working on now, or pick up the thread from last time — we go deeper, refine what is working, and take on the next real task.",
+    lede: "A 60-minute follow-up for clients who have completed an initial session. Bring whatever you are working on now, or pick up the thread from last time. We go deeper, refine what is working, and take on the next real task.",
     price: "$120",
     priceValue: 120,
     priceNote: "per session, book as many as you need",
@@ -162,7 +162,7 @@ const schema = [
 ---
 
 <BaseLayout
-  title={`Services and Pricing — ${TRADING_NAME}`}
+  title={`Services and Pricing | ${TRADING_NAME}`}
   description={`AI training for teams and individuals, with prices published. Half-day workshops from $2,500 for up to 15 people, small group from $350 per person, one-to-one from $175. ${ANCHOR_PHRASE}.`}
   schema={schema}
 >
@@ -170,7 +170,7 @@ const schema = [
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
       <p
-        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-3"
       >
         Services
       </p>
@@ -230,7 +230,7 @@ const schema = [
                 </div>
 
                 <div class="md:border-l md:border-aip-cloud md:pl-8">
-                  <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal">
+                  <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
                     {s.name}
                   </p>
                   <p class="font-heading font-bold text-h2 text-aip-navy mt-2">
@@ -268,7 +268,7 @@ const schema = [
         <p class="font-body font-light text-[16px] text-aip-grey mt-2">
           Registered NGOs based in Cambodia are charged a reduced rate on every
           session on this page. The development sector is a deliberate focus,
-          not an afterthought — mention it on the discovery call and I will
+          not an afterthought. Mention it on the discovery call and I will
           confirm the rate before you commit to anything.
         </p>
       </div>
@@ -302,7 +302,7 @@ const schema = [
                 {s.lede}
               </p>
               <div class="mt-auto pt-6 border-t border-aip-cloud">
-                <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal">
+                <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
                   {s.name}
                 </p>
                 <p class="font-heading font-bold text-h3 text-aip-navy mt-1">

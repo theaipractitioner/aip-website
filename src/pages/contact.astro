@@ -26,14 +26,14 @@ import {
 ---
 
 <BaseLayout
-  title={`Contact — ${TRADING_NAME}`}
+  title={`Contact | ${TRADING_NAME}`}
   description={`Get in touch about AI training for your team. Based in Siem Reap, Cambodia, working across Asia and Australasia. ${ANCHOR_PHRASE}.`}
 >
   <!-- 1. Hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
       <p
-        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-3"
+        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-3"
       >
         Contact
       </p>
@@ -41,7 +41,7 @@ import {
       <p
         class="font-body font-light text-[18px] text-aip-grey mt-5 max-w-[620px] leading-relaxed"
       >
-        If you know you want to talk, book the free discovery call — it is the
+        If you know you want to talk, book the free discovery call. It is the
         fastest route and costs you nothing. If you would rather write first,
         the form below reaches me directly.
       </p>
@@ -154,7 +154,7 @@ import {
         <!-- Direct details -->
         <aside class="md:border-l md:border-aip-white md:pl-10">
           <p
-            class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal mb-4"
+            class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-4"
           >
             Or reach me directly
           </p>
@@ -202,13 +202,13 @@ import {
   const show = (msg, ok) => {
     status.innerHTML = msg;
     status.className = `font-body text-[15px] ${
-      ok ? "text-aip-teal" : "text-aip-amber"
+      ok ? "text-aip-teal-deep" : "text-aip-amber"
     }`;
     status.classList.remove("hidden");
   };
 
   // Shown whenever the enquiry did not reach Notion, for any reason.
-  const fallback = `Sorry — the form could not send. Please email
+  const fallback = `Sorry, the form could not send. Please email
     <a class="underline" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>
     and I will pick it up.`;
 
@@ -232,7 +232,7 @@ import {
       });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
-      show("Thank you — that has reached me. I will reply within one working day.", true);
+      show("Thank you. That has reached me. I will reply within one working day.", true);
       button.textContent = "Sent";
     } catch {
       show(fallback, false);
