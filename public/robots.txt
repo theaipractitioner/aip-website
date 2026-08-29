@@ -57,9 +57,12 @@ Allow: /
 User-agent: *
 Allow: /
 
-# Hidden until the 1 September full launch: /blog has no real posts and
-# /book has no booking integration. Remove these two lines when both ship.
-Disallow: /blog
+# /blog shipped on 2026-08-29 and is open to every crawler above — being
+# cited on these posts is the whole point of allowing them by name.
+#
+# /book stays closed until a booking system is wired in. It is still
+# noindex in the page itself and still excluded from the sitemap, so all
+# three signals agree; change all three together or none of them.
 Disallow: /book
 
 Sitemap: https://theaipractitioner.ai/sitemap-index.xml
