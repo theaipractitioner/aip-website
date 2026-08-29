@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
+import { Image } from "astro:assets";
 import { getCollection, render } from "astro:content";
 import {
   FOUNDER,
@@ -42,6 +43,7 @@ const articleSchema = {
   },
   publisher: { "@id": `${SITE_URL}/#organization` },
   mainEntityOfPage: new URL(`/blog/${post.id}`, SITE_URL).href,
+  image: new URL(post.data.shareImage, SITE_URL).href,
   keywords: post.data.tags.join(", "),
   articleSection: post.data.category,
 };
@@ -50,6 +52,7 @@ const articleSchema = {
 <BaseLayout
   title={`${post.data.title} | ${TRADING_NAME}`}
   description={post.data.excerpt}
+  image={post.data.shareImage}
   schema={articleSchema}
 >
   <!-- Post header (White) -->
@@ -74,6 +77,19 @@ const articleSchema = {
         <p class="font-body text-[14px] text-aip-grey/70 mt-6">
           {dateFmt.format(post.data.publishDate)} · {post.data.readingTime} min read
         </p>
+      </div>
+
+      <!-- Hero photograph. Carries no text of its own by design, so the alt
+           text has to describe the picture rather than repeat the headline. -->
+      <div class="mx-auto max-w-[960px] px-6 pb-12">
+        <Image
+          src={post.data.heroImage}
+          alt={post.data.heroImageAlt}
+          widths={[640, 960, 1600]}
+          sizes="(min-width: 960px) 960px, 100vw"
+          class="w-full h-auto rounded-lg"
+          loading="eager"
+        />
       </div>
     </header>
 
