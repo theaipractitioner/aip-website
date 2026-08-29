@@ -11,9 +11,10 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      // Hidden at soft launch — see src/config/site.ts. Neither should be
-      // advertised to crawlers until they hold real content.
-      filter: (page) => !page.includes('/blog') && !page.includes('/book'),
+      // /blog joined the sitemap on 2026-08-29 when the week 34 posts went
+      // live. /book stays out until a booking system is wired in — it is
+      // still noindex, and advertising it to crawlers would contradict that.
+      filter: (page) => !page.includes('/book'),
     }),
   ],
 
