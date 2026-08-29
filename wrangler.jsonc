@@ -1,0 +1,18 @@
+{
+  // Cloudflare Pages project config.
+  //
+  // The build runs in the Workers project "aip-website", whose deploy command
+  // is `npx wrangler pages deploy dist`. That command needs to know which
+  // Pages project to publish into, and with no config file here it had no way
+  // to know — every build since the project was created failed at the deploy
+  // step with "Missing Pages project name", after building perfectly.
+  //
+  // `name` must match the Pages project in the dashboard. Its public hostname
+  // is aip-website-a7i.pages.dev: Cloudflare appended the suffix because
+  // aip-website.pages.dev was already taken by an unrelated account.
+  "name": "aip-website",
+  "pages_build_output_dir": "dist",
+
+  // Applies to the Pages Function in functions/api/contact.ts.
+  "compatibility_date": "2026-08-29"
+}
