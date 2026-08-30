@@ -2,18 +2,28 @@
 import Logo from "./Logo.astro";
 import {
   ANCHOR_PHRASE,
+  COMPANY_JURISDICTION,
+  COMPANY_NAME,
+  COMPANY_NUMBER,
   CONTACT_EMAIL,
   LOCATION,
   TRADING_NAME,
   visibleNavLinks as navLinks,
 } from "../config/site";
+import { getFooterPolicies } from "../lib/policies";
+
+// Only policies that are actually published appear here, so the column fills
+// itself as each one is approved and there is never a link to a page that
+// does not exist. While it is empty, the Legal column collapses to just the
+// index link.
+const footerPolicies = await getFooterPolicies();
 
 const year = 2026;
 ---
 
 <footer class="bg-aip-navy text-aip-white">
   <div class="mx-auto max-w-[1200px] px-6 py-20">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       <!-- Column 1: logo + tagline -->
       <div>
         <Logo variant="dark" class="text-lg" />
@@ -64,11 +74,52 @@ const year = 2026;
           {LOCATION.city}, {LOCATION.country}
         </p>
       </div>
+
+      <!-- Column 4: legal -->
+      <div>
+        <p
+          class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-white/60 mb-4"
+        >
+          Legal
+        </p>
+        <ul class="flex flex-col gap-3">
+          {
+            footerPolicies.map((policy) => (
+              <li>
+                <a
+                  href={`/policies/${policy.id}/`}
+                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors inline-block py-1"
+                >
+                  {policy.data.title}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a
+              href="/policies/"
+              class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors inline-block py-1"
+            >
+              All policies
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="mt-16 pt-8 border-t border-aip-white/15">
       <p class="font-body font-light text-[14px] text-aip-white/60">
         © {year} {TRADING_NAME}. All rights reserved.
+      </p>
+      <!--
+        Statutory disclosure: a UK limited company must give its registered
+        name, number and place of registration on its website in readable
+        text. Not decorative — do not remove it to tidy the footer.
+      -->
+      <p class="font-body font-light text-[14px] text-aip-white/60 mt-2">
+        {TRADING_NAME} is a trading name of {COMPANY_NAME}, registered in {
+          COMPANY_JURISDICTION
+        }, company number {COMPANY_NUMBER}.
       </p>
     </div>
   </div>

@@ -15,6 +15,17 @@ export const COMPANY_NAME = "Groundframe Ltd";
 export const LEGAL_NAME = `${COMPANY_NAME} trading as ${TRADING_NAME}`;
 export const FOUNDER = "Tim Parkin";
 
+/* A UK limited company must state its registered name, company number and
+   place of registration on its website, in readable text — structured data
+   does not satisfy it. Taken from the approved policy documents, which give
+   the entity as "Groundframe Ltd (Company No. 9715227)". Rendered in the
+   footer on every page.
+
+   The registered office address is the remaining part of that requirement
+   and is not recorded here yet. */
+export const COMPANY_NUMBER = "9715227";
+export const COMPANY_JURISDICTION = "England and Wales";
+
 /** Used verbatim, everywhere. Supersedes the older "AI Fluency for Professionals". */
 export const ANCHOR_PHRASE = "AI Fluency for Experienced Professionals";
 

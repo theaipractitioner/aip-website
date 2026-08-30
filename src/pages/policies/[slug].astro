@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { render } from "astro:content";
+import { getPolicies } from "../../lib/policies";
+import { COMPANY_NAME, COMPANY_NUMBER, CONTACT_EMAIL } from "../../config/site";
+
+export async function getStaticPaths() {
+  const policies = await getPolicies();
+  return policies.map((policy) => ({
+    params: { slug: policy.id },
+    props: { policy },
+  }));
+}
+
+const { policy } = Astro.props;
+const { Content } = await render(policy);
+
+const dateFmt = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+});
+---
+
+<BaseLayout
+  title={`${policy.data.title} | The AI Practitioner`}
+  description={policy.data.summary}
+>
+  <article>
+    <!-- Policy header (White) -->
+    <header class="bg-aip-white">
+      <div class="mx-auto max-w-[720px] px-6 pt-20 pb-10">
+        <a
+          href="/policies/"
+          class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep no-underline hover:underline"
+        >
+          ← All policies
+        </a>
+        <h1
+          class="font-heading font-bold text-[30px] md:text-h1 leading-[1.15] text-aip-navy mt-4"
+        >
+          {policy.data.title}
+        </h1>
+
+        <!--
+          The version block is the point of publishing these at all: a policy
+          with no version or review date is a marketing page. Every value here
+          comes from the approved document, not from the website.
+        -->
+        <dl
+          class="mt-8 border-t border-aip-cloud pt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4"
+        >
+          <div>
+            <dt
+              class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-grey/70"
+            >
+              Reference
+            </dt>
+            <dd class="font-body font-light text-[16px] text-aip-navy mt-1">
+              {policy.data.policyId} · Version {policy.data.version}
+            </dd>
+          </div>
+          <div>
+            <dt
+              class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-grey/70"
+            >
+              Effective
+            </dt>
+            <dd class="font-body font-light text-[16px] text-aip-navy mt-1">
+              {dateFmt.format(policy.data.effectiveDate)}
+            </dd>
+          </div>
+          <div>
+            <dt
+              class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-grey/70"
+            >
+              Owner
+            </dt>
+            <dd class="font-body font-light text-[16px] text-aip-navy mt-1">
+              {policy.data.owner}
+            </dd>
+          </div>
+          <div>
+            <dt
+              class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-grey/70"
+            >
+              Next review
+            </dt>
+            <dd class="font-body font-light text-[16px] text-aip-navy mt-1">
+              {policy.data.nextReview}
+            </dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt
+              class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-grey/70"
+            >
+              Applies to
+            </dt>
+            <dd class="font-body font-light text-[16px] text-aip-navy mt-1">
+              {policy.data.appliesTo}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <!-- Policy body (White). Reuses .post-body from the blog post page so the
+         two long-form reading experiences cannot drift apart. -->
+    <div class="bg-aip-white">
+      <div class="mx-auto max-w-[720px] px-6 pb-16">
+        <div class="post-body">
+          <Content />
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal footer for the document itself (Light Cloud) -->
+    <div class="bg-aip-cloud">
+      <div class="mx-auto max-w-[720px] px-6 py-12">
+        <p class="font-body font-light text-[15px] text-aip-grey">
+          This policy is published by {COMPANY_NAME}, registered in England and
+          Wales, company number {COMPANY_NUMBER}. Questions about it go to{" "}
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            class="text-aip-teal-deep hover:underline">{CONTACT_EMAIL}</a
+          >.
+        </p>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
