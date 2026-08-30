@@ -13,7 +13,7 @@ order: 1
 
 ## 1. Introduction and Purpose
 
-The AI Practitioner (“AIP”, “we”, “us”, “our”) is an AI consultancy: our credibility depends on using AI tools responsibly, transparently and to a higher standard than we ask of our clients. This policy sets out how AIP personnel, contractors and associates must use AI tools — including large language models, AI writing and research assistants, and AI-enabled features within other software — when carrying out AIP business.
+**The AI Practitioner** (“AIP”, “we”, “us”, “our”) is an AI consultancy: our credibility depends on using AI tools responsibly, transparently and to a higher standard than we ask of our clients. This policy sets out how AIP personnel, contractors and associates must use AI tools — including large language models, AI writing and research assistants, and AI-enabled features within other software — when carrying out AIP business.
 
 This policy governs AI as a tool used by a human to do their work. It is a companion to, and should be read alongside, the Digital Workers Policy (AIP-PS-007), which governs AI operating as a registered, semi-autonomous member of AIP's digital workforce. Section 14 explains the boundary between the two.
 
@@ -41,20 +41,20 @@ It does not cover AI tools used by clients within their own organisations, which
 
 The following terms have the meanings set out below wherever they are used in this policy.
 
-- AI Tool. Any AI model, application or AI-enabled feature used by a human under their direct, session-by-session control to support their work, including general-purpose assistants (for example Claude, ChatGPT, Gemini, Perplexity) and AI features embedded within other business software.
-- AI-assisted. Describes work to which an AI Tool has contributed — for example drafting, research or analysis — where a human has directed, reviewed and taken responsibility for the final output.
-- AI-generated. Describes content produced substantially or wholly by an AI Tool with limited human authorship, as distinct from AI-assisted content; see Section 10.
-- Human Review. The check a qualified human must carry out on AI-generated or AI-assisted content before it is relied upon, published or delivered, as required under Section 9.
-- Human Authority. The person(s) authorised to make governance decisions under this policy and the Digital Workers Policy (AIP-PS-007); currently the Director, Tim Parkin, with this authority expected to extend to a future Governance Board as AIP grows.
-- Digital Worker. An AI capability registered as a member of AIP’s digital workforce under the Digital Workers Policy (AIP-PS-007), which governs its creation, authority, supervision and retirement; see AIP-PS-007 for the full definition and governance model.
+- **AI Tool.** Any AI model, application or AI-enabled feature used by a human under their direct, session-by-session control to support their work, including general-purpose assistants (for example Claude, ChatGPT, Gemini, Perplexity) and AI features embedded within other business software.
+- **AI-assisted.** Describes work to which an AI Tool has contributed — for example drafting, research or analysis — where a human has directed, reviewed and taken responsibility for the final output.
+- **AI-generated.** Describes content produced substantially or wholly by an AI Tool with limited human authorship, as distinct from AI-assisted content; see Section 10.
+- **Human Review.** The check a qualified human must carry out on AI-generated or AI-assisted content before it is relied upon, published or delivered, as required under Section 9.
+- **Human Authority.** The person(s) authorised to make governance decisions under this policy and the Digital Workers Policy (AIP-PS-007); currently the Director, Tim Parkin, with this authority expected to extend to a future Governance Board as AIP grows.
+- **Digital Worker.** An AI capability registered as a member of AIP’s digital workforce under the Digital Workers Policy (AIP-PS-007), which governs its creation, authority, supervision and retirement; see AIP-PS-007 for the full definition and governance model.
 
 ## 6. Guiding Principles
 
-- Human accountability. A human is always accountable for work AIP delivers, regardless of how much AI assistance was used in producing it. AI tools support AIP's judgement; they do not replace it.
-- Proportionate transparency. We are open with clients about our use of AI where it is material to the engagement or the deliverable, in line with Section 10.
-- Data minimisation. We give AI tools no more client or personal data than a task genuinely requires.
-- Verify before you rely. AI-generated content is checked by a human before it is relied upon, published or sent to a client.
-- Use the right tool for the sensitivity of the task. Higher-sensitivity data requires a higher-trust tool and tier. See Section 8.
+- **Human accountability.** A human is always accountable for work AIP delivers, regardless of how much AI assistance was used in producing it. AI tools support AIP's judgement; they do not replace it.
+- **Proportionate transparency.** We are open with clients about our use of AI where it is material to the engagement or the deliverable, in line with Section 10.
+- **Data minimisation.** We give AI tools no more client or personal data than a task genuinely requires.
+- **Verify before you rely.** AI-generated content is checked by a human before it is relied upon, published or sent to a client.
+- **Use the right tool for the sensitivity of the task.** Higher-sensitivity data requires a higher-trust tool and tier. See Section 8.
 
 ## 7. Approved AI Tools and the Tool Register
 
@@ -65,19 +65,18 @@ AIP maintains a working list of AI tools approved for use in AIP business. A too
 - Multi-factor authentication support;
 - A clear basis for any international data transfer, consistent with the Data Protection Policy (AIP-PS-003).
 
-AI Tool Register
-
-AIP maintains an internal AI Tool Register recording approved AI tools used within the organisation. As a minimum, the register records the tool name, supplier, subscription tier, approved business purpose / approved use cases, approver, approval date and current status. The register is maintained as an operational governance record and is not published as part of this policy.
+| AI Tool Register AIP maintains an internal AI Tool Register recording approved AI tools used within the organisation. As a minimum, the register records the tool name, supplier, subscription tier, approved business purpose / approved use cases, approver, approval date and current status. The register is maintained as an operational governance record and is not published as part of this policy. |
+| --- |
 
 ## 8. Client Data and Confidentiality
 
 AI tools must be treated as a third-party processor of any data placed into them. The following rules apply:
 
-- No client-identifiable or confidential data in free or consumer-tier AI tools. Only tools meeting the Section 7 bar may be used for anything beyond publicly available or fully anonymised information.
-- Apply data minimisation, even to approved tools. Only the minimum information necessary to complete the task should be entered into any AI tool, even where the tool has been approved for handling client data.
-- Anonymise or generalise where possible. Before entering client material into an AI tool, consider whether client names, identifying details or commercially sensitive figures can be removed or replaced without losing the value of the task.
-- Check the client contract first. Where a client engagement letter or NDA restricts the use of third-party tools or AI specifically, that contract takes precedence over this policy and must be followed.
-- No training data for AIP's competitive material. Do not input AIP's own commercially sensitive methodology, pricing or unpublished intellectual property into tools whose terms permit the vendor to use inputs for model training.
+- **No client-identifiable or confidential data** in free or consumer-tier AI tools. Only tools meeting the Section 7 bar may be used for anything beyond publicly available or fully anonymised information.
+- **Apply data minimisation, even to approved tools.** Only the minimum information necessary to complete the task should be entered into any AI tool, even where the tool has been approved for handling client data.
+- **Anonymise or generalise where possible.** Before entering client material into an AI tool, consider whether client names, identifying details or commercially sensitive figures can be removed or replaced without losing the value of the task.
+- **Check the client contract first.** Where a client engagement letter or NDA restricts the use of third-party tools or AI specifically, that contract takes precedence over this policy and must be followed.
+- **No training data for AIP's competitive material.** Do not input AIP's own commercially sensitive methodology, pricing or unpublished intellectual property into tools whose terms permit the vendor to use inputs for model training.
 
 This section operates alongside, and does not replace, the Privacy Policy (AIP-PS-001) and Data Protection Policy (AIP-PS-003).
 
@@ -126,21 +125,11 @@ AI models can be confidently wrong, can reflect biases present in their training
 
 AIP distinguishes between two categories of AI use, governed by two separate policies:
 
-This policy (AI Usage & Governance, AIP-PS-006)
-
-Digital Workers Policy (AIP-PS-007)
-
-Governs AI used as a tool by a human, under that human's direct, session-by-session control.
-
-Governs AI operating as a registered digital worker with an ongoing role, identity and delegated authority within AIP.
-
-Example: drafting a proposal with an AI assistant.
-
-Example: Hermes, AIP's registered supervisory and governance worker.
-
-No registration required.
-
-Registration in the Digital Workers Register (DB01) is mandatory before deployment.
+| This policy (AI Usage & Governance, AIP-PS-006) | Digital Workers Policy (AIP-PS-007) |
+| --- | --- |
+| Governs AI used as a tool by a human, under that human's direct, session-by-session control. | Governs AI operating as a registered digital worker with an ongoing role, identity and delegated authority within AIP. |
+| Example: drafting a proposal with an AI assistant. | Example: Hermes, AIP's registered supervisory and governance worker. |
+| No registration required. | Registration in the Digital Workers Register (DB01) is mandatory before deployment. |
 
 Where an AI tool moves from occasional assisted use towards an ongoing, named role with standing responsibilities, it should be assessed for registration as a Digital Worker under AIP-PS-007.
 
@@ -160,8 +149,8 @@ As AIP grows beyond a sole-director operation, every person covered by Section 4
 
 ## 17. Roles and Responsibilities
 
-- Director (Tim Parkin): owns this policy, approves new AI tools, and is the point of escalation for incidents.
-- All personnel and contractors: responsible for following this policy and for the quality and accuracy of any work product they deliver, whatever AI assistance was used to produce it.
+- **Director (Tim Parkin):** owns this policy, approves new AI tools, and is the point of escalation for incidents.
+- **All personnel and contractors:** responsible for following this policy and for the quality and accuracy of any work product they deliver, whatever AI assistance was used to produce it.
 
 ## 18. Controlled Exceptions
 

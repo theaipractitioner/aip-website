@@ -7,10 +7,9 @@ the internal approval note is dropped (it is addressed to AIP, not readers).
 
 Re-runnable. Point it at a new version and it overwrites.
 """
-import re
-import subprocess
-import sys
 from pathlib import Path
+
+from docx_to_markdown import convert, header_table
 
 POLICIES = Path(
     "/Users/timparkin/Library/Mobile Documents/com~apple~CloudDocs/"
@@ -21,12 +20,12 @@ OUT = Path(
     "aip-website/src/content/policies"
 )
 
-# slug, docx path relative to POLICIES, group, order on the index, and a
-# one-line summary written for the index page (the documents have no abstract).
 T1 = "Tier 1 - Launch Critical"
 T2 = "Tier 2 - Strategic Differentiators"
 
 DOCS = [
+    # slug, path under POLICIES, group, index order, and a one-line summary
+    # written at import: the documents carry no abstract of their own.
     # Tier 1. Listed at v1.0 before those files exist: the importer skips a
     # missing file and refuses any document whose Status is not Approved, so
     # this can be run repeatedly and will pick each one up as it lands.
@@ -87,45 +86,6 @@ DOCS = [
 ]
 
 
-def docx_to_text(path):
-    return subprocess.run(
-        ["textutil", "-convert", "txt", "-stdout", str(path)],
-        capture_output=True, text=True, check=True,
-    ).stdout
-
-
-def parse(text):
-    """Split into (header dict, body lines), dropping the approval note."""
-    lines = [l.rstrip() for l in text.split("\n")]
-
-    # Header runs as alternating key/value pairs until the first blank line.
-    header, i = {}, 2  # 0 = title, 1 = "Groundframe Ltd t/a ... Specification"
-    while i + 1 < len(lines) and lines[i].strip():
-        header[lines[i].strip()] = lines[i + 1].strip()
-        i += 2
-
-    # The approval note is a standalone "Approved — Version X" line plus the
-    # paragraph under it. It speaks to AIP about publication, not to readers.
-    while i < len(lines) and not re.match(r"^1\. ", lines[i]):
-        i += 1
-
-    return header, lines[i:]
-
-
-def to_markdown(body):
-    out = []
-    for line in body:
-        if re.match(r"^\d+\. \S", line):
-            out.append(f"\n## {line}\n")
-        elif line.startswith("\t•\t") or line.startswith("\t•\t"):
-            out.append(f"- {line.split(chr(9))[2].strip()}")
-        elif line.strip():
-            out.append(f"\n{line.strip()}\n")
-    # collapse runs of blank lines
-    md = "\n".join(out)
-    return re.sub(r"\n{3,}", "\n\n", md).strip() + "\n"
-
-
 def esc(s):
     return s.replace('"', '\\"')
 
@@ -137,7 +97,7 @@ def main():
         if not src.exists():
             print(f"  MISSING: {src}")
             continue
-        header, body = parse(docx_to_text(src))
+        header = header_table(src)
 
         version = header.get("Version", "").split("—")[0].strip()
         status = header.get("Status", "")
@@ -157,7 +117,9 @@ def main():
             f'summary: "{esc(d["summary"])}"\n'
             f'group: "{d["group"]}"\n'
             f"order: {d['order']}\n"
-            "---\n\n" + to_markdown(body)
+            # Everything before section 1 is the header table and the internal
+            # approval note; both are handled or dropped deliberately.
+            "---\n\n" + convert(src, skip_until=r"^1\. ")
         )
         (OUT / f"{d['slug']}.md").write_text(md)
         print(f"  {d['slug']}.md  v{version}  {len(md.split())} words")

@@ -35,15 +35,15 @@ This policy applies to every Digital Worker registered, or proposed for registra
 
 The following terms have the meanings set out below wherever they are used in this policy.
 
-- Digital Worker / Worker. A governed digital entity that performs a defined role, function, responsibility or supervisory activity on behalf of AIP, as set out in Section 6. The terms “Digital Worker” and “Worker” are used interchangeably in this policy.
-- Human Authority. The person(s) authorised to approve Worker creation, retirement, governance changes, expenditure and strategic decisions on AIP’s behalf; currently the Director, Tim Parkin, with this authority expected to extend to a future Governance Board as AIP grows, as set out in the Worker Authority Model at Section 10.
-- Governance Authority. The level of authority (A1–A5) that determines what a Worker is authorised to do on behalf of AIP, as set out in the Worker Authority Model at Section 10.
-- Technical Permission. The level of technical access a Worker holds within its implementation platform — Read Only; Read + Write; Read + Write + Archive; or Admin — independent of its Governance Authority, as set out in Section 10.
-- Platform. The underlying technology or vendor infrastructure on which a Worker is implemented. A Worker’s identity and governance history are independent of its Platform, as set out in Section 15.
-- Infrastructure. A tool, connector or automation with no independent identity or ongoing responsibility, and which therefore falls outside this policy, as distinguished from a Worker under the test in Section 6.
-- Supervisory Worker. A Worker responsible for coordinating, assigning and reviewing the work of Operational Workers, as set out in Section 11 and Section 17.
-- Governance Worker. A Worker that monitors governance compliance, registrations, review schedules and controls, and escalates issues, without independent authority to approve governance policy, as set out in Section 17.
-- Operational Worker. A Worker that executes approved operational, analytical or administrative tasks within its delegated authority level, as set out in Section 17.
+- **Digital Worker / Worker.** A governed digital entity that performs a defined role, function, responsibility or supervisory activity on behalf of AIP, as set out in Section 6. The terms “Digital Worker” and “Worker” are used interchangeably in this policy.
+- **Human Authority.** The person(s) authorised to approve Worker creation, retirement, governance changes, expenditure and strategic decisions on AIP’s behalf; currently the Director, Tim Parkin, with this authority expected to extend to a future Governance Board as AIP grows, as set out in the Worker Authority Model at Section 10.
+- **Governance Authority.** The level of authority (A1–A5) that determines what a Worker is authorised to do on behalf of AIP, as set out in the Worker Authority Model at Section 10.
+- **Technical Permission.** The level of technical access a Worker holds within its implementation platform — Read Only; Read + Write; Read + Write + Archive; or Admin — independent of its Governance Authority, as set out in Section 10.
+- **Platform.** The underlying technology or vendor infrastructure on which a Worker is implemented. A Worker’s identity and governance history are independent of its Platform, as set out in Section 15.
+- **Infrastructure.** A tool, connector or automation with no independent identity or ongoing responsibility, and which therefore falls outside this policy, as distinguished from a Worker under the test in Section 6.
+- **Supervisory Worker.** A Worker responsible for coordinating, assigning and reviewing the work of Operational Workers, as set out in Section 11 and Section 17.
+- **Governance Worker.** A Worker that monitors governance compliance, registrations, review schedules and controls, and escalates issues, without independent authority to approve governance policy, as set out in Section 17.
+- **Operational Worker.** A Worker that executes approved operational, analytical or administrative tasks within its delegated authority level, as set out in Section 17.
 
 ## 6. Definition of a Worker
 
@@ -53,33 +53,14 @@ A digital entity is classified as a Worker, rather than as infrastructure, using
 
 Where classification is unclear, the Director will determine whether the entity should be governed as a Digital Worker or as infrastructure.
 
-Entity
-
-Classification
-
-Hermes (supervisory and governance worker)
-
-Worker
-
-Research Worker / Content Worker / Marketing Worker / Governance Worker
-
-Worker
-
-Scheduled automation
-
-Infrastructure
-
-Workflow
-
-Infrastructure
-
-MCP connector
-
-Infrastructure
-
-Claude Project / Perplexity Workspace / ChatGPT Project / Gemini Workspace
-
-Infrastructure
+| Entity | Classification |
+| --- | --- |
+| Hermes (supervisory and governance worker) | Worker |
+| Research Worker / Content Worker / Marketing Worker / Governance Worker | Worker |
+| Scheduled automation | Infrastructure |
+| Workflow | Infrastructure |
+| MCP connector | Infrastructure |
+| Claude Project / Perplexity Workspace / ChatGPT Project / Gemini Workspace | Infrastructure |
 
 ## 7. Relationship to the AI Usage & Governance Policy
 
@@ -87,14 +68,14 @@ Occasional or session-by-session use of an AI assistant by a human — for examp
 
 ## 8. Guiding Principles
 
-- Technology neutrality. This policy governs Workers by role, authority, responsibility and risk classification — irrespective of the underlying platform, vendor or AI model. A Worker's identity, governance history and authority survive a platform migration; only the platform attribute changes.
-- Human accountability. Human personnel retain ultimate accountability for all business activity. Authority may be delegated to a Worker; accountability is never delegated away from a human.
-- Delegated authority. Every Digital Worker operates only within the authority explicitly delegated to it. Authority not expressly delegated remains with Human Authority.
-- Archive, never delete. Worker records, governance records and audit history are retained permanently. Workers may be retired or archived; their registration record and Worker ID are never deleted or reused.
-- Risk-based governance. Review cycles and controls are set according to assessed risk. Quarterly review is the current default pending a formal risk-based review model.
-- Scalability. The governance model is designed to remain workable as the digital workforce grows — the current planning assumption is a workforce of up to approximately 100 Digital Workers.
-- Build only what is justified. Additional governance infrastructure (systems, databases, controls) is introduced only when growth, incident volume or operational complexity creates a demonstrable need — not speculatively.
-- Proportionate governance. Governance controls, processes and documentation should remain proportionate to AIP’s size, maturity, operational complexity and risk profile, and should evolve as the organisation grows.
+- **Technology neutrality.** This policy governs Workers by role, authority, responsibility and risk classification — irrespective of the underlying platform, vendor or AI model. A Worker's identity, governance history and authority survive a platform migration; only the platform attribute changes.
+- **Human accountability.** Human personnel retain ultimate accountability for all business activity. Authority may be delegated to a Worker; accountability is never delegated away from a human.
+- **Delegated authority.** Every Digital Worker operates only within the authority explicitly delegated to it. Authority not expressly delegated remains with Human Authority.
+- **Archive, never delete.** Worker records, governance records and audit history are retained permanently. Workers may be retired or archived; their registration record and Worker ID are never deleted or reused.
+- **Risk-based governance.** Review cycles and controls are set according to assessed risk. Quarterly review is the current default pending a formal risk-based review model.
+- **Scalability.** The governance model is designed to remain workable as the digital workforce grows — the current planning assumption is a workforce of up to approximately 100 Digital Workers.
+- **Build only what is justified.** Additional governance infrastructure (systems, databases, controls) is introduced only when growth, incident volume or operational complexity creates a demonstrable need — not speculatively.
+- **Proportionate governance.** Governance controls, processes and documentation should remain proportionate to AIP’s size, maturity, operational complexity and risk profile, and should evolve as the organisation grows.
 
 ## 9. The Hybrid Organisation
 
@@ -104,58 +85,18 @@ AIP is organised as a Hybrid Organisation: human personnel and Digital Workers o
 
 AIP separates two independent forms of authority. Holding one does not automatically confer the other.
 
-- Technical Permissions govern what a Worker is technically able to do within its implementation platform: Read Only; Read + Write; Read + Write + Archive; or Admin.
-- Governance Authority governs what a Worker is authorised to do on behalf of AIP, set out in the five-level model below.
+- **Technical Permissions** govern what a Worker is technically able to do within its implementation platform: Read Only; Read + Write; Read + Write + Archive; or Admin.
+- **Governance Authority** governs what a Worker is authorised to do on behalf of AIP, set out in the five-level model below.
 
 Technical Permissions and Governance Authority are independent. A Worker may require high technical permissions but limited governance authority, or vice versa, depending on its role.
 
-Level
-
-Authority
-
-Permitted
-
-Cannot do without human approval
-
-A1
-
-Advisory
-
-Research, analysis, drafting, recommendation, reporting
-
-Approve actions, commit expenditure, create or retire Workers, modify governance controls
-
-A2
-
-Operational
-
-Create/update records, execute approved workflows, perform assigned tasks
-
-Approve governance decisions or expenditure, create or retire Workers
-
-A3
-
-Supervisory
-
-Review Worker outputs, assign work, coordinate Workers, escalate issues
-
-Approve governance changes or expenditure, create or retire Workers without human approval
-
-A4
-
-Governance
-
-Review governance compliance, registrations, performance and controls; recommend action
-
-Approve its own recommendations, commit expenditure, change governance policy
-
-A5
-
-Human Authority
-
-Approve Worker creation/retirement, governance changes, expenditure, strategic decisions
-
-Not applicable — reserved for Human Authority (currently the Director, Tim Parkin; in future, a Governance Board)
+| Level | Authority | Permitted | Cannot do without human approval |
+| --- | --- | --- | --- |
+| A1 | Advisory | Research, analysis, drafting, recommendation, reporting | Approve actions, commit expenditure, create or retire Workers, modify governance controls |
+| A2 | Operational | Create/update records, execute approved workflows, perform assigned tasks | Approve governance decisions or expenditure, create or retire Workers |
+| A3 | Supervisory | Review Worker outputs, assign work, coordinate Workers, escalate issues | Approve governance changes or expenditure, create or retire Workers without human approval |
+| A4 | Governance | Review governance compliance, registrations, performance and controls; recommend action | Approve its own recommendations, commit expenditure, change governance policy |
+| A5 | Human Authority | Approve Worker creation/retirement, governance changes, expenditure, strategic decisions | Not applicable — reserved for Human Authority (currently the Director, Tim Parkin; in future, a Governance Board) |
 
 A Worker may only exercise authority explicitly delegated to it. Authority not explicitly delegated is reserved for Human Authority. No Digital Worker may independently commit AIP financially, sign a contract, approve a governance policy change, approve a strategic direction change, or create or retire a Worker without human approval.
 
@@ -172,11 +113,11 @@ Each Worker’s Governance Authority Level and Technical Permission Level must b
 
 The Digital Workers Register (DB01) is the single authoritative register of every Digital Worker operating within AIP. The following rules apply:
 
-- Register first, deploy second. Registration is mandatory before deployment. A Worker does not officially exist, and may not operate within AIP's environment, until it is registered.
-- One record per Worker. Each Worker holds a single, permanent registration record. Worker IDs are never reused, renumbered or reassigned.
-- Minimum registration record. Each registration includes, as a minimum: Worker ID, Worker Name, Owner, Approved Purpose / Approved Role Statement, Governance Authority Level, Technical Permission Level, Platform, Status and Review Date. Additional attributes may be added as the governance model evolves.
-- Controlled changes. Material changes to a Worker’s registration record, including changes to governance authority, ownership, status or platform, must be authorised by Human Authority and recorded in DB01. Routine operational updates may be made in accordance with delegated responsibilities.
-- Full lifecycle tracked in DB01. Registration, review, change control, incident management, retirement and archiving are all recorded in DB01.
+- **Register first, deploy second.** Registration is mandatory before deployment. A Worker does not officially exist, and may not operate within AIP's environment, until it is registered.
+- **One record per Worker.** Each Worker holds a single, permanent registration record. Worker IDs are never reused, renumbered or reassigned.
+- **Minimum registration record.** Each registration includes, as a minimum: Worker ID, Worker Name, Owner, Approved Purpose / Approved Role Statement, Governance Authority Level, Technical Permission Level, Platform, Status and Review Date. Additional attributes may be added as the governance model evolves.
+- **Controlled changes.** Material changes to a Worker’s registration record, including changes to governance authority, ownership, status or platform, must be authorised by Human Authority and recorded in DB01. Routine operational updates may be made in accordance with delegated responsibilities.
+- **Full lifecycle tracked in DB01.** Registration, review, change control, incident management, retirement and archiving are all recorded in DB01.
 
 ## 13. Worker Created in Error
 
@@ -205,17 +146,17 @@ A Worker's identity is permanent and is not defined by the technology platform i
 
 ## 16. Review, Incidents and Retirement
 
-- Review. Every Digital Worker is reviewed on a risk-based cycle; quarterly review is the current default. Routine operational oversight may occur continuously through normal management activities. The formal review cycle provides the documented governance review and does not replace ongoing supervision. In addition, a Worker that undergoes a material change — to its authority, permissions, platform, approved purpose or ownership — requires an additional governance review triggered by that change, rather than waiting for the next scheduled review cycle.
-- Incident management. Incidents involving a Digital Worker are logged against its record in DB01 and escalated to Human Authority where they involve a breach of delegated authority, a data or security concern, or a client-facing error.
-- Continual improvement. Where appropriate, significant incidents should be considered during subsequent governance reviews to determine whether changes to delegated authority, supervision arrangements, governance controls or policy are justified.
-- Retirement and archiving. A Worker may be retired by Human Authority approval. Retired and archived Workers are never deleted; their record and history are preserved in line with the Archive Never Delete principle.
+- **Review.** Every Digital Worker is reviewed on a risk-based cycle; quarterly review is the current default. Routine operational oversight may occur continuously through normal management activities. The formal review cycle provides the documented governance review and does not replace ongoing supervision. In addition, a Worker that undergoes a material change — to its authority, permissions, platform, approved purpose or ownership — requires an additional governance review triggered by that change, rather than waiting for the next scheduled review cycle.
+- **Incident management.** Incidents involving a Digital Worker are logged against its record in DB01 and escalated to Human Authority where they involve a breach of delegated authority, a data or security concern, or a client-facing error.
+- **Continual improvement.** Where appropriate, significant incidents should be considered during subsequent governance reviews to determine whether changes to delegated authority, supervision arrangements, governance controls or policy are justified.
+- **Retirement and archiving.** A Worker may be retired by Human Authority approval. Retired and archived Workers are never deleted; their record and history are preserved in line with the Archive Never Delete principle.
 
 ## 17. Roles and Responsibilities
 
-- Human Authority (Director, Tim Parkin): ultimate accountability for the digital workforce; approves Worker creation, retirement, governance changes, expenditure and strategic decisions.
-- Governance Workers: monitor governance compliance, registrations, review schedules and controls, and escalate issues — without independent authority to approve governance policy.
-- Supervisory Workers: coordinate, assign and review the work of Operational Workers within delegated authority.
-- Operational Workers: execute approved operational, analytical or administrative tasks within their delegated authority level.
+- **Human Authority (Director, Tim Parkin):** ultimate accountability for the digital workforce; approves Worker creation, retirement, governance changes, expenditure and strategic decisions.
+- **Governance Workers:** monitor governance compliance, registrations, review schedules and controls, and escalate issues — without independent authority to approve governance policy.
+- **Supervisory Workers:** coordinate, assign and review the work of Operational Workers within delegated authority.
+- **Operational Workers:** execute approved operational, analytical or administrative tasks within their delegated authority level.
 
 ## 18. Controlled Exceptions
 

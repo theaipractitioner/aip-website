@@ -67,3 +67,93 @@
     outline-offset: 2px;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Long-form body copy rendered from a content collection             */
+/*                                                                     */
+/*  Markdown rendered by <Content /> never receives Astro's scoped     */
+/*  style attribute, so these rules have to be global. They lived in   */
+/*  blog/[slug].astro behind `is:global`, which makes the selectors    */
+/*  global but still only ships the stylesheet on that one page — so   */
+/*  the policy pages rendered with no list bullets, body-sized         */
+/*  headings and no paragraph spacing. They belong here, where every   */
+/*  page that renders Markdown can see them.                           */
+/*                                                                     */
+/*  Namespaced under .post-body so they cannot leak into the           */
+/*  hand-built pages.                                                  */
+/* ------------------------------------------------------------------ */
+
+.post-body {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--color-aip-grey);
+  }
+
+  .post-body > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .post-body h2 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-h3);
+    line-height: 1.25;
+    color: var(--color-aip-navy);
+    margin-top: 3rem;
+  }
+
+  .post-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--text-h4);
+    color: var(--color-aip-navy);
+    margin-top: 2.5rem;
+  }
+
+  .post-body ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+
+  .post-body ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+
+  .post-body li + li {
+    margin-top: 0.5rem;
+  }
+
+  .post-body a {
+    color: var(--color-aip-teal-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    /* Source URLs run long and must not force a horizontal scrollbar. */
+    overflow-wrap: anywhere;
+  }
+
+  .post-body blockquote {
+    border-left: 3px solid var(--color-aip-teal);
+    padding-left: 1.25rem;
+    font-style: italic;
+    color: var(--color-aip-navy);
+  }
+
+  .post-body hr {
+    border: 0;
+    border-top: 1px solid var(--color-aip-cloud);
+    margin-top: 3rem;
+  }
+
+  /* Everything after the closing rule is source attribution: smaller, quieter. */
+  .post-body hr ~ p {
+    font-size: 14px;
+    color: color-mix(in srgb, var(--color-aip-grey) 70%, transparent);
+  }
+
+  .post-body strong {
+    font-weight: 500;
+    color: var(--color-aip-navy);
+  }

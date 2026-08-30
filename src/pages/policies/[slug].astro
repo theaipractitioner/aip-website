@@ -105,10 +105,12 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
     </header>
 
     <!-- Policy body (White). Reuses .post-body from the blog post page so the
-         two long-form reading experiences cannot drift apart. -->
+         two long-form reading experiences cannot drift apart, with
+         .policy-body adding only the extra paragraph spacing that policy
+         prose needs and blog prose does not. -->
     <div class="bg-aip-white">
       <div class="mx-auto max-w-[720px] px-6 pb-16">
-        <div class="post-body">
+        <div class="post-body policy-body">
           <Content />
         </div>
       </div>
@@ -129,3 +131,65 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
     </div>
   </article>
 </BaseLayout>
+
+<!--
+  Policy prose is denser than blog prose: long clauses, few sub-headings, and
+  paragraphs that must be read one at a time rather than skimmed. Extra space
+  between them is what makes that readable. Scoped to .policy-body so the
+  blog keeps its tighter rhythm.
+-->
+<style is:global>
+  .policy-body > p + p {
+    margin-top: 2.25rem;
+  }
+
+  .policy-body > p + ul,
+  .policy-body > ul + p {
+    margin-top: 2rem;
+  }
+
+  .policy-body li + li {
+    margin-top: 0.75rem;
+  }
+
+  /* The policies carry real tables — classification tests, authority levels,
+     approval thresholds — and they are the densest part of the document. On
+     a narrow screen the wrapper scrolls rather than the page. */
+  .policy-body table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin-top: 2rem;
+    display: block;
+    overflow-x: auto;
+  }
+
+  .policy-body thead th {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-aip-navy);
+    text-align: left;
+    padding: 0 1rem 0.75rem 0;
+    border-bottom: 1px solid var(--color-aip-navy);
+    white-space: nowrap;
+  }
+
+  .policy-body tbody td {
+    padding: 0.9rem 1rem 0.9rem 0;
+    border-bottom: 1px solid var(--color-aip-cloud);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+
+  .policy-body tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .policy-body strong {
+    font-weight: 500;
+    color: var(--color-aip-navy);
+  }
+</style>
