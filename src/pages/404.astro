@@ -6,13 +6,11 @@
 // Astro builds this to dist/404.html, which Pages serves with a real 404.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
-import { getCollection } from "astro:content";
+import { getPublishedPosts } from "../lib/posts";
 
 // A wrong URL is most often a mistyped or out-of-date link to a post, so offer
 // the three most recent rather than a bare "go home".
-const recent = (await getCollection("blog"))
-  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
-  .slice(0, 3);
+const recent = (await getPublishedPosts()).slice(0, 3);
 ---
 
 <BaseLayout title="Page not found | The AI Practitioner" noindex>
