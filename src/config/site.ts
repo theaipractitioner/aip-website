@@ -21,10 +21,25 @@ export const FOUNDER = "Tim Parkin";
    the entity as "Groundframe Ltd (Company No. 9715227)". Rendered in the
    footer on every page.
 
-   The registered office address is the remaining part of that requirement
-   and is not recorded here yet. */
+   The registered office is the company's statutory address in the UK. It is
+   deliberately separate from LOCATION below, which is where Tim actually
+   works and what the site says about being based in Cambodia — the two are
+   different facts and must not be merged. */
 export const COMPANY_NUMBER = "9715227";
 export const COMPANY_JURISDICTION = "England and Wales";
+export const REGISTERED_OFFICE = {
+  street: "49 Station Road",
+  town: "Polegate",
+  county: "East Sussex",
+  postcode: "BN26 6EA",
+  country: "United Kingdom",
+};
+export const REGISTERED_OFFICE_LINE = [
+  REGISTERED_OFFICE.street,
+  REGISTERED_OFFICE.town,
+  REGISTERED_OFFICE.county,
+  REGISTERED_OFFICE.postcode,
+].join(", ");
 
 /** Used verbatim, everywhere. Supersedes the older "AI Fluency for Professionals". */
 export const ANCHOR_PHRASE = "AI Fluency for Experienced Professionals";

@@ -7,6 +7,7 @@ import {
   COMPANY_NUMBER,
   CONTACT_EMAIL,
   LOCATION,
+  REGISTERED_OFFICE_LINE,
   TRADING_NAME,
   visibleNavLinks as navLinks,
 } from "../config/site";
@@ -119,7 +120,9 @@ const year = 2026;
       <p class="font-body font-light text-[14px] text-aip-white/60 mt-2">
         {TRADING_NAME} is a trading name of {COMPANY_NAME}, registered in {
           COMPANY_JURISDICTION
-        }, company number {COMPANY_NUMBER}.
+        }, company number {COMPANY_NUMBER}. Registered office: {
+          REGISTERED_OFFICE_LINE
+        }.
       </p>
     </div>
   </div>

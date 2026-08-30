@@ -4,11 +4,13 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import {
   ANCHOR_PHRASE,
+  COMPANY_NUMBER,
   CONTACT_EMAIL,
   FOUNDER,
   LEGAL_NAME,
   LINKEDIN_URL,
   LOCATION,
+  REGISTERED_OFFICE,
   SITE_URL,
   TRADING_NAME,
 } from "../config/site";
@@ -53,10 +55,30 @@ const organizationSchema = {
     "@id": `${SITE_URL}/about#person`,
     name: FOUNDER,
   },
+  // `address` is where the business actually operates from. The registered
+  // office in England is a different fact, carried separately below and
+  // stated in full in the footer — do not collapse the two.
   address: {
     "@type": "PostalAddress",
     addressLocality: LOCATION.city,
     addressCountry: LOCATION.countryCode,
+  },
+  identifier: {
+    "@type": "PropertyValue",
+    name: "UK company number",
+    value: COMPANY_NUMBER,
+  },
+  location: {
+    "@type": "Place",
+    name: "Registered office",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: REGISTERED_OFFICE.street,
+      addressLocality: REGISTERED_OFFICE.town,
+      addressRegion: REGISTERED_OFFICE.county,
+      postalCode: REGISTERED_OFFICE.postcode,
+      addressCountry: "GB",
+    },
   },
 };
 
