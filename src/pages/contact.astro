@@ -22,7 +22,17 @@ import {
 /*  form that swallows an enquiry is worse than no form. The endpoint  */
 /*  also does not exist under `astro dev` — Pages Functions only run   */
 /*  on Cloudflare — so expect the fallback locally.                    */
+/*                                                                     */
+/*  The form collects personal data and writes it to a third-party     */
+/*  system, so the Privacy Policy is linked at the point of collection */
+/*  rather than only in the footer. It is looked up rather than hard   */
+/*  coded: AIP-PS-001 is not published yet, and a dead link from a     */
+/*  form asking for someone's details would be worse than none. The    */
+/*  link appears by itself the day the policy is imported.             */
 /* ------------------------------------------------------------------ */
+import { getPolicyById } from "../lib/policies";
+
+const privacyPolicy = await getPolicyById("AIP-PS-001");
 ---
 
 <BaseLayout
@@ -140,6 +150,21 @@ import {
                 Send message
               </Button>
             </div>
+
+            {
+              privacyPolicy && (
+                <p class="font-body font-light text-[15px] text-aip-grey">
+                  What happens to the details you send is set out in our{" "}
+                  <a
+                    href={`/policies/${privacyPolicy.id}/`}
+                    class="text-aip-teal-deep underline underline-offset-2 hover:text-aip-teal transition-colors"
+                  >
+                    {privacyPolicy.data.title}
+                  </a>
+                  .
+                </p>
+              )
+            }
 
             <p
               id="form-status"

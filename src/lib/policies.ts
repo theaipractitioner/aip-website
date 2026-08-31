@@ -39,6 +39,18 @@ export async function getPoliciesInGroup(group: string): Promise<Policy[]> {
   return (await getPolicies()).filter((p) => p.data.group === group);
 }
 
+/** One published policy by its ID, or undefined if it is not published yet.
+
+    For the places that want to link to a specific policy — the privacy notice
+    beside the contact form, for one — rather than to a list. Returning
+    undefined rather than throwing is the point: the caller renders nothing
+    until the policy exists, and the link appears on its own the day it does. */
+export async function getPolicyById(
+  policyId: string
+): Promise<Policy | undefined> {
+  return (await getPolicies()).find((p) => p.data.policyId === policyId);
+}
+
 /* The footer shows the ones a visitor might look for, not all of them. A
    seven-item legal column buries the two people actually want. The rest are
    one click away on the index, which the footer also links to.
