@@ -28,11 +28,29 @@ export const FOUNDER = "Tim Parkin";
    number from them, but they are wrong and want correcting at their next
    revision.
 
+   Two guards keep the zero on, because it went missing once already and
+   nothing complained. The assertion below fails the build the moment this
+   constant stops being eight digits. It cannot see a number typed straight
+   into a page, though, so scripts/check-company-number.mjs runs after the
+   build and scans the rendered HTML for the same mistake anywhere. Both are
+   deliberately fatal: a failed build leaves the previous site up, which is
+   the safe direction to fail in.
+
    The registered office is the company's statutory address in the UK. It is
    deliberately separate from LOCATION below, which is where Tim actually
    works and what the site says about being based in Cambodia — the two are
    different facts and must not be merged. */
 export const COMPANY_NUMBER = "09715227";
+
+if (!/^[0-9]{8}$/.test(COMPANY_NUMBER)) {
+  throw new Error(
+    `COMPANY_NUMBER must be exactly eight digits, got "${COMPANY_NUMBER}". ` +
+      "The registered number is 09715227: the leading zero is part of it, " +
+      "and dropping it makes the statutory disclosure in the footer wrong " +
+      "on every page. Keep it a quoted string — anything that treats the " +
+      "value as a number will strip the zero again.",
+  );
+}
 export const COMPANY_JURISDICTION = "England and Wales";
 export const REGISTERED_OFFICE = {
   street: "49 Station Road",

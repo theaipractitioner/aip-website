@@ -164,6 +164,33 @@ the subscriber straight into the list that triggers the nurture sequence.
 
 ---
 
+## 6. Build-time checks
+
+`npm run build` is `astro build` followed by `npm run check`, which today runs
+one script: `scripts/check-company-number.mjs`.
+
+It exists because the statutory company number was stored as `9715227` for a
+while, without its leading zero, and nothing complained. A wrong company number
+breaks no test and renders perfectly well — it is only wrong in law, and every
+UK limited company must state its registered number on its website in readable
+text. The script scans the built HTML and fails the build if the number appears
+anywhere without the zero, which catches the likely mistake: somebody typing it
+into a page or a policy document rather than reading it from
+`src/config/site.ts`. Every source document we hold gives it as
+"Company No. 9715227", so the mistake is easy to make. There is a second,
+narrower assertion inside `site.ts` for the constant itself.
+
+Both are deliberately fatal. A failed build leaves the previous site up, which
+is the right direction to fail in.
+
+**This only protects the deploy if Cloudflare Pages runs `npm run build`** —
+the default for an Astro project, but it has not been confirmed against the
+dashboard. If the project is set to run `astro build` directly, the check is
+skipped in CI and only ever runs locally. Worth two minutes to confirm under
+the Pages project's Build settings, and worth recording here when you do.
+
+---
+
 ## Environment variables — summary
 
 | Name | Where | Secret | Required for |
