@@ -82,19 +82,18 @@ export const booking = {
 /*  Navigation                                                         */
 /*                                                                     */
 /*  Header and Footer both read from here so the two cannot drift.     */
-/*  `softLaunch: false` hides a link at the 14 August soft launch —    */
-/*  an empty blog and a non-functional booking page cost more          */
-/*  credibility than they earn. Blog went live on 2026-08-29 with the  */
-/*  week 34 posts. Book stays hidden until a booking system is wired   */
-/*  in for the 1 September full launch; until then every CTA points    */
-/*  straight at the cal.eu event types above.                          */
+/*  `softLaunch: false` hid a link at the 14 August soft launch — an    */
+/*  empty blog and a non-functional booking page cost more credibility  */
+/*  than they earn. Blog went live on 2026-08-29 with the week 34       */
+/*  posts, and /book on 2026-09-01 for the full launch. Every link is   */
+/*  now visible, so nothing is currently false.                         */
 /* ------------------------------------------------------------------ */
 
 export const navLinks = [
   { label: "About", href: "/about", softLaunch: true },
   { label: "Services", href: "/services", softLaunch: true },
   { label: "FAQ", href: "/faq", softLaunch: true },
-  { label: "Book", href: "/book", softLaunch: false },
+  { label: "Book", href: "/book", softLaunch: true },
   { label: "Blog", href: "/blog", softLaunch: true },
   { label: "Contact", href: "/contact", softLaunch: true },
 ];

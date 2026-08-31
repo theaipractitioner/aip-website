@@ -1,13 +1,107 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { ANCHOR_PHRASE, TRADING_NAME, booking } from "../config/site";
+
+/* ------------------------------------------------------------------ */
+/*  Shipped for the 1 September 2026 full launch.                      */
+/*                                                                     */
+/*  This page books against cal.eu, the same event types every other   */
+/*  CTA on the site already points at. It holds no links of its own:   */
+/*  every href comes from `booking` in src/config/site.ts, so a change */
+/*  of provider stays a one-line edit there.                           */
+/*                                                                     */
+/*  Prices are repeated from /services deliberately. Somebody landing  */
+/*  here from a link should not have to go and find them.              */
+/*                                                                     */
+/*  Two things are true of the live cal.eu setup and shape the copy    */
+/*  below — see DEPLOYMENT.md §3:                                      */
+/*                                                                     */
+/*  - No payment app is connected, so nothing takes a card. The        */
+/*    "Booking reserves the time" note says so plainly rather than     */
+/*    letting someone arrive at the checkout that is not there.        */
+/*  - The Team Follow-Up event type is deliberately hidden until       */
+/*    Stripe is live, so that card routes to the discovery call, the   */
+/*    same as /services does. Do not point it at a hidden event type.  */
+/*                                                                     */
+/*  No JSON-LD here on purpose: /services already publishes the Course */
+/*  and Service offers for exactly these sessions, and a second set of */
+/*  entities for the same offers would compete with it.                */
+/* ------------------------------------------------------------------ */
+
+const individual = [
+  {
+    name: "One-to-One Coaching",
+    lede: "Ninety minutes built around your own work. You leave having used Claude to finish a real task from your job.",
+    price: "$175",
+    priceNote: "per session",
+    format: "90 minutes, via Zoom",
+    href: booking.oneToOne,
+    cta: "Book a 1:1 session",
+    featured: true,
+  },
+  {
+    name: "Follow-Up One-to-One",
+    lede: "An hour for returning clients. Bring what you are working on now, or pick up the thread from last time.",
+    price: "$120",
+    priceNote: "per session",
+    format: "60 minutes, via Zoom",
+    href: booking.followUp,
+    cta: "Book a follow-up",
+    featured: false,
+  },
+];
+
+const teams = [
+  {
+    name: "Small Group Workshop",
+    lede: "Half a day for up to five people. Small enough to stay hands-on, big enough that people learn from each other's questions.",
+    price: "$350",
+    priceNote: "per person, for 4–5 people",
+    format: "3.5 hours, in person or via Zoom",
+    href: booking.smallGroup,
+    cta: "Book a small group workshop",
+    featured: false,
+  },
+  {
+    name: "Half-Day Workshop",
+    lede: "The standard team session for up to 15 people, built around the work your department actually does.",
+    price: "$2,500",
+    priceNote: "for up to 15 people",
+    format: "3.5 hours, in-house or via Zoom",
+    href: booking.halfDay,
+    cta: "Book a half-day workshop",
+    featured: true,
+  },
+  {
+    name: "Full Day Workshop",
+    lede: "The same approach with room to reach the recurring, awkward, judgement-heavy jobs where fluency pays for itself.",
+    price: "$4,000",
+    priceNote: "for up to 15 people",
+    format: "7 hours, in-house or via Zoom",
+    href: booking.fullDay,
+    cta: "Book a full-day workshop",
+    featured: false,
+  },
+  {
+    name: "Team Follow-Up",
+    lede: "Ninety minutes for a team that has already been through a workshop. We deal with whatever has quietly stalled.",
+    price: "$1,000",
+    priceNote: "for up to 15 people",
+    format: "90 minutes, for teams who have completed a workshop",
+    href: booking.discoveryCall,
+    cta: "Enquire about a follow-up",
+    featured: false,
+  },
+];
 ---
 
-<!-- Hidden until the 1 September full launch: no booking integration yet.
-     Remove `noindex` and flip `softLaunch` in src/config/site.ts when
-     Acuity Scheduling is wired in. -->
-<BaseLayout title="Book | The AI Practitioner" noindex>
-  <!-- Page hero (White) -->
+<BaseLayout
+  title={`Book a Session | ${TRADING_NAME}`}
+  description={`Book AI training and coaching directly. One-to-one from $175, small group from $350 per person, half-day team workshops from $2,500. Start with a free 30-minute discovery call. ${ANCHOR_PHRASE}.`}
+>
+  <!-- 1. Hero (White) -->
   <section class="bg-aip-white">
     <div class="mx-auto max-w-[1200px] px-6 py-20">
       <p
@@ -15,27 +109,246 @@ import Button from "../components/Button.astro";
       >
         Book
       </p>
-      <h1 class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy">
+      <h1
+        class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy max-w-[820px]"
+      >
         Book a session
       </h1>
       <p
-        class="font-body font-light text-[18px] text-aip-grey mt-4 max-w-[560px]"
+        class="font-body font-light text-[18px] text-aip-grey mt-5 max-w-[640px]"
       >
-        Booking coming soon, powered by Acuity Scheduling.
+        Every session on this page books straight into a real calendar with a
+        real time against it. If you are not sure which one you want, start
+        with the free conversation below — that is what it is for.
       </p>
+    </div>
+  </section>
 
-      <!-- Amber callout (max one per page) -->
+  <!-- 2. Discovery call (Light Cloud) -->
+  <section class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
       <div
-        class="mt-8 max-w-[640px] bg-aip-cloud border-l-4 border-aip-amber p-5"
+        class="bg-aip-white rounded-lg border-[1.5px] border-aip-teal p-7 md:p-9 max-w-[820px]"
       >
-        <p class="font-heading italic text-[18px] text-aip-navy">
-          Scheduling isn’t live just yet. Check back shortly to reserve your
-          spot.
+        <p
+          class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep"
+        >
+          Start here
+        </p>
+        <h2
+          class="font-heading font-bold text-[26px] md:text-h2 leading-[1.2] text-aip-navy mt-2"
+        >
+          A free 30-minute discovery call
+        </h2>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+          Thirty minutes on where your team is now and what you want them to be
+          able to do. No obligation, no jargon, and no attempt to sell you the
+          largest thing on the page. If a workshop is the wrong answer I will
+          say so.
+        </p>
+        <p class="font-body font-light text-[14px] text-aip-grey mt-3">
+          30 minutes, via Zoom. Free.
+        </p>
+        <div class="mt-6">
+          <Button variant="primary" href={booking.discoveryCall}>
+            Book a free discovery call
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Individual sessions (White) -->
+  <section id="for-individuals" class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <SectionHeading
+        eyebrow="For individuals"
+        heading="Coaching for one"
+        subtext="For professionals building their own fluency first, whether or not a team follows."
+        class="mb-12 max-w-[720px]"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          individual.map((s) => (
+            <article
+              class:list={[
+                "rounded-lg p-7 md:p-8 flex flex-col",
+                s.featured
+                  ? "border-[1.5px] border-aip-teal"
+                  : "border border-aip-cloud",
+              ]}
+            >
+              <h3 class="font-heading font-semibold text-h3 text-aip-navy leading-snug">
+                {s.name}
+              </h3>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+                {s.lede}
+              </p>
+              <div class="mt-auto pt-6 border-t border-aip-cloud">
+                <p class="font-heading font-bold text-h3 text-aip-navy">
+                  {s.price}
+                  <span class="font-body font-light text-[14px] text-aip-grey">
+                    {" "}
+                    {s.priceNote}
+                  </span>
+                </p>
+                <p class="font-body font-light text-[14px] text-aip-grey mt-2">
+                  {s.format}
+                </p>
+                <div class="mt-5">
+                  <Button
+                    variant={s.featured ? "primary" : "secondary"}
+                    href={s.href}
+                  >
+                    {s.cta}
+                  </Button>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Team sessions (Light Cloud) -->
+  <section id="for-teams" class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <SectionHeading
+        eyebrow="For teams"
+        heading="Training for organisations"
+        subtext="Delivered in-house across Cambodia and Southeast Asia, or online anywhere in Asia and Australasia."
+        class="mb-12 max-w-[720px]"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          teams.map((s) => (
+            <article
+              class:list={[
+                "bg-aip-white rounded-lg p-7 md:p-8 flex flex-col",
+                s.featured
+                  ? "border-[1.5px] border-aip-teal"
+                  : "border border-aip-cloud",
+              ]}
+            >
+              <h3 class="font-heading font-semibold text-h3 text-aip-navy leading-snug">
+                {s.name}
+              </h3>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-4">
+                {s.lede}
+              </p>
+              <div class="mt-auto pt-6 border-t border-aip-cloud">
+                <p class="font-heading font-bold text-h3 text-aip-navy">
+                  {s.price}
+                  <span class="font-body font-light text-[14px] text-aip-grey">
+                    {" "}
+                    {s.priceNote}
+                  </span>
+                </p>
+                <p class="font-body font-light text-[14px] text-aip-grey mt-2">
+                  {s.format}
+                </p>
+                <div class="mt-5">
+                  <Button
+                    variant={s.featured ? "primary" : "secondary"}
+                    href={s.href}
+                  >
+                    {s.cta}
+                  </Button>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- NGO rate is named but not priced: it is issued as a private code
+           once status is confirmed on the discovery call. Same wording as
+           /services on purpose — one rate, stated once, in two places. -->
+      <div
+        class="mt-8 rounded-lg bg-aip-teal-tint border border-aip-teal/30 p-7 max-w-[820px]"
+      >
+        <h3 class="font-heading font-semibold text-h4 text-aip-navy">
+          Working for an NGO?
+        </h3>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-2">
+          Registered NGOs based in Cambodia are charged a reduced rate on every
+          team session above. Mention it on the discovery call and I will
+          confirm the rate before you commit to anything.
         </p>
       </div>
 
+      <p
+        class="font-body font-light text-[15px] text-aip-grey mt-6 max-w-[720px]"
+      >
+        Team rates are indicative. The final figure depends on group size and
+        scope, and is confirmed in writing after the discovery call. All prices
+        are in US dollars and are net of any local taxes.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5. What happens after you book (White) -->
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <SectionHeading
+        eyebrow="Practicalities"
+        heading="What happens once you book"
+        class="mb-10 max-w-[720px]"
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1000px]">
+        <div>
+          <h3 class="font-heading font-semibold text-h4 text-aip-navy">
+            You pick the time
+          </h3>
+          <p class="font-body font-light text-[16px] text-aip-grey mt-3">
+            The calendar shows real availability in your own time zone. You get
+            a confirmation and a calendar invitation straight away.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-heading font-semibold text-h4 text-aip-navy">
+            Booking reserves the time
+          </h3>
+          <p class="font-body font-light text-[16px] text-aip-grey mt-3">
+            You are not asked for card details at the point of booking. Payment
+            is arranged separately once the session is confirmed, so nothing is
+            taken before we have spoken.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-heading font-semibold text-h4 text-aip-navy">
+            We prepare before we meet
+          </h3>
+          <p class="font-body font-light text-[16px] text-aip-grey mt-3">
+            I ask what you or your team actually spend the week doing. Sessions
+            are built on that, which is why none of them are a generic demo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CTA band (Deep Navy) -->
+  <section class="bg-aip-navy">
+    <div class="mx-auto max-w-[1200px] px-6 py-20 text-center">
+      <h2 class="font-heading font-bold text-h2 text-aip-white">
+        None of these quite right?
+      </h2>
+      <p
+        class="font-body font-light text-[16px] text-aip-white/80 mt-4 max-w-[620px] mx-auto"
+      >
+        Sessions are shaped around the work, so the shapes above are a starting
+        point rather than a menu. Tell me what you are trying to change and I
+        will tell you honestly whether I can help.
+      </p>
       <div class="mt-8">
-        <Button variant="primary" disabled>Booking coming soon</Button>
+        <Button variant="primary" href={booking.discoveryCall}>
+          Book a free discovery call
+        </Button>
       </div>
     </div>
   </section>

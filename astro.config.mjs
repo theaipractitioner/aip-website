@@ -10,12 +10,10 @@ export default defineConfig({
   site: 'https://theaipractitioner.ai',
 
   integrations: [
-    sitemap({
-      // /blog joined the sitemap on 2026-08-29 when the week 34 posts went
-      // live. /book stays out until a booking system is wired in — it is
-      // still noindex, and advertising it to crawlers would contradict that.
-      filter: (page) => !page.includes('/book'),
-    }),
+    // /blog joined the sitemap on 2026-08-29 with the week 34 posts, and
+    // /book on 2026-09-01 when it started booking against cal.eu. Every
+    // route is now listed, so there is no filter left to apply.
+    sitemap(),
   ],
 
   vite: {

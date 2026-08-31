@@ -57,12 +57,13 @@ Allow: /
 User-agent: *
 Allow: /
 
-# /blog shipped on 2026-08-29 and is open to every crawler above — being
-# cited on these posts is the whole point of allowing them by name.
+# /blog shipped on 2026-08-29 and /book on 2026-09-01, and both are open to
+# every crawler above — being cited on them is the whole point of allowing
+# these agents by name.
 #
-# /book stays closed until a booking system is wired in. It is still
-# noindex in the page itself and still excluded from the sitemap, so all
-# three signals agree; change all three together or none of them.
-Disallow: /book
+# There are no Disallow rules. Nothing on this site is hidden from crawlers
+# any more. If a page is ever taken back out, three signals have to move
+# together: a Disallow here, `noindex` on the page, and the sitemap filter in
+# astro.config.mjs. Change all three or none of them.
 
 Sitemap: https://theaipractitioner.ai/sitemap-index.xml
