@@ -17,15 +17,22 @@ export const FOUNDER = "Tim Parkin";
 
 /* A UK limited company must state its registered name, company number and
    place of registration on its website, in readable text — structured data
-   does not satisfy it. Taken from the approved policy documents, which give
-   the entity as "Groundframe Ltd (Company No. 9715227)". Rendered in the
-   footer on every page.
+   does not satisfy it. Rendered in the footer on every page.
+
+   The leading zero is part of the number and is never to be dropped:
+   09715227, not 9715227. Companies House numbers are eight-character
+   identifiers rather than integers, so the zero is significant and the
+   number must never be stored as one or reformatted by anything that
+   treats it as one. Note that the policy .docx on iCloud Drive all give it
+   as "Company No. 9715227" without the zero — the site does not take the
+   number from them, but they are wrong and want correcting at their next
+   revision.
 
    The registered office is the company's statutory address in the UK. It is
    deliberately separate from LOCATION below, which is where Tim actually
    works and what the site says about being based in Cambodia — the two are
    different facts and must not be merged. */
-export const COMPANY_NUMBER = "9715227";
+export const COMPANY_NUMBER = "09715227";
 export const COMPANY_JURISDICTION = "England and Wales";
 export const REGISTERED_OFFICE = {
   street: "49 Station Road",
