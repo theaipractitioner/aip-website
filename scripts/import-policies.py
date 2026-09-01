@@ -90,6 +90,27 @@ def esc(s):
     return s.replace('"', '\\"')
 
 
+# The header tables are not quite uniform. AIP-PS-003 is an internal policy
+# and labels the row "Audience" — "Internal — Tim Parkin, and any future
+# employees..." — where the outward-facing ones say "Applies to". Both answer
+# the same question for a reader, so they feed the same field. Anything else
+# missing is a fault in the document and should stop the import rather than
+# be papered over.
+APPLIES_TO_KEYS = ("Applies to", "Audience")
+
+
+def applies_to(header, name):
+    for key in APPLIES_TO_KEYS:
+        if key in header:
+            return header[key]
+    raise SystemExit(
+        f"  STOPPING on {name}: the header table has none of "
+        f"{', '.join(APPLIES_TO_KEYS)}. It has: {', '.join(header)}. "
+        "Fix the document rather than this script — every policy page states "
+        "who it applies to."
+    )
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for d in DOCS:
@@ -113,7 +134,7 @@ def main():
             f'effectiveDate: {header["Effective date"]}\n'
             f'nextReview: "{esc(header["Next review"])}"\n'
             f'owner: "{esc(header["Owner"])}"\n'
-            f'appliesTo: "{esc(header["Applies to"])}"\n'
+            f'appliesTo: "{esc(applies_to(header, src.name))}"\n'
             f'summary: "{esc(d["summary"])}"\n'
             f'group: "{d["group"]}"\n'
             f"order: {d['order']}\n"

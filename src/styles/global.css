@@ -141,6 +141,27 @@
     color: var(--color-aip-navy);
   }
 
+  /* Policy callouts.
+
+     The policies draw a callout as a single shaded cell in Word — "Our
+     commitment", "Secrets rule — absolute", nine of them across the suite —
+     and the converter renders each as a blockquote. The blog's blockquote is
+     an italic pull-quote, which is wrong here: these are the binding bits,
+     often several paragraphs long, and a page of italics is harder to read
+     rather than more emphatic. Same left rule, upright text, tinted so the
+     box still reads as set apart from the prose around it. */
+  .policy-body blockquote {
+    font-style: normal;
+    background: var(--color-aip-teal-tint);
+    border-left-color: var(--color-aip-teal-deep);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  .policy-body blockquote > * + * {
+    margin-top: 0.75rem;
+  }
+
   .post-body hr {
     border: 0;
     border-top: 1px solid var(--color-aip-cloud);

@@ -31,23 +31,68 @@ def _escape(text):
     return text.replace("|", "\\|")
 
 
+def _render_run(run):
+    """One run, with its emphasis. Whitespace stays outside the markers."""
+    text = _escape(run.text)
+    if not text:
+        return ""
+    lead = text[: len(text) - len(text.lstrip())]
+    trail = text[len(text.rstrip()) :]
+    core = text.strip()
+    if core:
+        if run.bold:
+            core = f"**{core}**"
+        if run.italic:
+            core = f"_{core}_"
+    return f"{lead}{core}{trail}"
+
+
+def _hyperlink_target(paragraph, element):
+    """The URL behind a w:hyperlink, or None for an internal anchor."""
+    from docx.oxml.ns import qn
+
+    rel_id = element.get(qn("r:id"))
+    if not rel_id:
+        return None
+    return paragraph.part.rels[rel_id].target_ref
+
+
 def _runs_to_markdown(paragraph):
-    """Render a paragraph's runs, preserving bold and italic."""
+    """Render a paragraph, preserving bold, italic and links.
+
+    `paragraph.runs` skips anything inside a w:hyperlink, so reading it alone
+    silently drops every link in the document. The policies carry 23 of them
+    between them: the contact address in five of the seven, and in the Cookie
+    Policy ten links to the privacy notices of the processors it names, which
+    is most of the point of a cookie policy. The loss was invisible because
+    the link text survived as ordinary prose, except where the whole visible
+    text was the link — the Privacy Policy's contact line then ended on a
+    dangling em dash with nothing after it.
+
+    So walk the paragraph's children in order instead, and turn each link into
+    a Markdown one. Bare mailto: addresses are written as plain text where the
+    label already is the address, since a mailto link that reads as its own
+    URL gains nothing and the site turns addresses into links anyway.
+    """
+    from docx.oxml.ns import qn
+    from docx.text.run import Run
+
     out = []
-    for run in paragraph.runs:
-        text = _escape(run.text)
-        if not text:
-            continue
-        # Whitespace must sit outside the markers or the emphasis breaks.
-        lead = text[: len(text) - len(text.lstrip())]
-        trail = text[len(text.rstrip()) :]
-        core = text.strip()
-        if core:
-            if run.bold:
-                core = f"**{core}**"
-            if run.italic:
-                core = f"_{core}_"
-        out.append(f"{lead}{core}{trail}")
+    for child in paragraph._p.iterchildren():
+        if child.tag == qn("w:r"):
+            out.append(_render_run(Run(child, paragraph)))
+        elif child.tag == qn("w:hyperlink"):
+            label = "".join(
+                _render_run(Run(r, paragraph))
+                for r in child.findall(qn("w:r"))
+            ).strip()
+            if not label:
+                continue
+            target = _hyperlink_target(paragraph, child)
+            if not target or target.startswith("mailto:"):
+                out.append(label)
+            else:
+                out.append(f"[{label}]({target})")
     return "".join(out).strip()
 
 
@@ -55,8 +100,34 @@ def _is_list(paragraph):
     return paragraph._p.pPr is not None and paragraph._p.pPr.numPr is not None
 
 
+def _callout_to_markdown(table):
+    """Render a one-by-one table as a blockquote.
+
+    The policies use a single shaded cell as a callout box — "Our commitment",
+    "Secrets rule — absolute", and seven more across the suite. A one-cell
+    table is not tabular data and rendering it as a Markdown table produces a
+    bordered box with an empty header, which is not what the author drew.
+
+    Worse, `cell.text` flattens the cell's paragraphs into one line and drops
+    every run's formatting, so the bold label ran straight into the sentence
+    after it: "Our commitment AIP does not sell, rent...". Walking the
+    paragraphs keeps the label on its own line and keeps the bold.
+    """
+    lines = []
+    for paragraph in table.rows[0].cells[0].paragraphs:
+        text = _runs_to_markdown(paragraph)
+        if text:
+            lines.append(text)
+    if not lines:
+        return ""
+    return "\n>\n".join(f"> {line}" for line in lines)
+
+
 def _table_to_markdown(table):
     """Render a Word table as a Markdown table."""
+    if len(table.rows) == 1 and len(table.rows[0].cells) == 1:
+        return _callout_to_markdown(table)
+
     rows = []
     for row in table.rows:
         cells = [" ".join(c.text.split()) for c in row.cells]

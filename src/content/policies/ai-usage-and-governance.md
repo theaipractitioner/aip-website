@@ -65,8 +65,9 @@ AIP maintains a working list of AI tools approved for use in AIP business. A too
 - Multi-factor authentication support;
 - A clear basis for any international data transfer, consistent with the Data Protection Policy (AIP-PS-003).
 
-| AI Tool Register AIP maintains an internal AI Tool Register recording approved AI tools used within the organisation. As a minimum, the register records the tool name, supplier, subscription tier, approved business purpose / approved use cases, approver, approval date and current status. The register is maintained as an operational governance record and is not published as part of this policy. |
-| --- |
+> **AI Tool Register**
+>
+> AIP maintains an internal AI Tool Register recording approved AI tools used within the organisation. As a minimum, the register records the tool name, supplier, subscription tier, approved business purpose / approved use cases, approver, approval date and current status. The register is maintained as an operational governance record and is not published as part of this policy.
 
 ## 8. Client Data and Confidentiality
 
