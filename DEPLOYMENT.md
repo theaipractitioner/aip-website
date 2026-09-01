@@ -164,7 +164,34 @@ the subscriber straight into the list that triggers the nurture sequence.
 
 ---
 
-## 6. Build-time checks
+## 6. Cloudflare Pages project configuration
+
+Read off the dashboard on 1 September 2026. Recorded because none of it was
+written down, and answering one question about the build command needed a trip
+through the dashboard to find out.
+
+| Setting | Value |
+|---|---|
+| Project | `theaipractitioner`, Workers & Pages |
+| Git repository | `theaipractitioner/aip-website`, connected |
+| Production branch | `master`, automatic deployments enabled |
+| Build command | `npm run build` |
+| Build output | `dist` |
+| Root directory | *(blank)* |
+| Build watch paths | `*` |
+| Build system version | Version 3 |
+| Build cache | Disabled |
+| Build comments | Enabled |
+| Compatibility date | 2026-08-29 |
+| Variables | `NOTION_TOKEN` (secret) |
+| Deploy hook | `daily-scheduled-publish`, on `master` — called by the daily-blog-publish Worker |
+
+A production deploy takes roughly a minute end to end: about 35s building and
+11s deploying, plus clone and init.
+
+---
+
+## 7. Build-time checks
 
 `npm run build` is `astro build` followed by `npm run check`, which today runs
 one script: `scripts/check-company-number.mjs`.
@@ -183,11 +210,19 @@ narrower assertion inside `site.ts` for the constant itself.
 Both are deliberately fatal. A failed build leaves the previous site up, which
 is the right direction to fail in.
 
-**This only protects the deploy if Cloudflare Pages runs `npm run build`** —
-the default for an Astro project, but it has not been confirmed against the
-dashboard. If the project is set to run `astro build` directly, the check is
-skipped in CI and only ever runs locally. Worth two minutes to confirm under
-the Pages project's Build settings, and worth recording here when you do.
+**Confirmed running in CI on 1 September 2026.** The Pages project's build
+command is `npm run build`, so the check runs on every deploy rather than only
+locally. Seen in the build log for `a296f06`, not just in the settings:
+
+```
+> aip-website@0.0.1 check
+> node scripts/check-company-number.mjs
+✓ check-company-number: 09715227 correct in 79 place(s) across 28 pages
+```
+
+That dependency is worth knowing about if anyone ever changes the build
+command: setting it to `astro build` would silently skip every check in
+`npm run check`, and the deploy would still succeed.
 
 ---
 
