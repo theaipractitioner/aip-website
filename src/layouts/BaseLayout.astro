@@ -8,7 +8,7 @@ import {
   CONTACT_EMAIL,
   FOUNDER,
   LEGAL_NAME,
-  LINKEDIN_URL,
+  SOCIAL_PROFILES,
   LOCATION,
   REGISTERED_OFFICE,
   SITE_URL,
@@ -49,7 +49,10 @@ const organizationSchema = {
   url: SITE_URL,
   email: CONTACT_EMAIL,
   logo: new URL("/logo-avatar.png", SITE_URL).href,
-  sameAs: [LINKEDIN_URL],
+  // Every profile the business runs. This is how a search engine knows the
+  // LinkedIn and Facebook pages are the same organisation as this site, so
+  // it is built from the same list the footer renders.
+  sameAs: SOCIAL_PROFILES.map((p) => p.url),
   founder: {
     "@type": "Person",
     "@id": `${SITE_URL}/about#person`,

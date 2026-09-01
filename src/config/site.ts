@@ -69,8 +69,37 @@ export const REGISTERED_OFFICE_LINE = [
 /** Used verbatim, everywhere. Supersedes the older "AI Fluency for Professionals". */
 export const ANCHOR_PHRASE = "AI Fluency for Experienced Professionals";
 
-export const LINKEDIN_URL =
-  "https://www.linkedin.com/in/tim-parkin-ai-practitioner";
+/* ------------------------------------------------------------------ */
+/*  Social profiles                                                    */
+/*                                                                     */
+/*  A list rather than a constant per platform: more are expected over */
+/*  the coming months, and adding one should mean adding a line here   */
+/*  and nothing else. The footer renders this in order, and the        */
+/*  Organization's `sameAs` is built from it — that is the field that  */
+/*  tells a search engine these pages are the same business, so a      */
+/*  profile added to the footer and not to `sameAs` is only half       */
+/*  linked.                                                            */
+/*                                                                     */
+/*  `web.facebook.com`, which is what the browser address bar shows,   */
+/*  is Facebook's desktop-forcing host. `www` is the canonical one and */
+/*  serves the same page on every device.                              */
+/* ------------------------------------------------------------------ */
+export const SOCIAL_PROFILES = [
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/tim-parkin-ai-practitioner",
+  },
+  {
+    name: "Facebook",
+    url: "https://www.facebook.com/profile.php?id=61590907649270",
+  },
+] as const;
+
+/* Tim's own profile, kept separate because the Person schema on /about
+   and the "reach me directly" block on /contact point at the person
+   rather than at the business's list of pages. It is the same URL as the
+   LinkedIn entry above and reads from it so the two cannot drift. */
+export const LINKEDIN_URL = SOCIAL_PROFILES[0].url;
 export const CONTACT_EMAIL = "info@theaipractitioner.ai";
 
 export const LOCATION = {

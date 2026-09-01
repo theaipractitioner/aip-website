@@ -8,6 +8,7 @@ import {
   CONTACT_EMAIL,
   LOCATION,
   REGISTERED_OFFICE_LINE,
+  SOCIAL_PROFILES,
   TRADING_NAME,
   visibleNavLinks as navLinks,
 } from "../config/site";
@@ -74,6 +75,30 @@ const year = 2026;
         <p class="font-body font-light text-[16px] text-aip-white/80 mt-2">
           {LOCATION.city}, {LOCATION.country}
         </p>
+
+        <!-- Sits inside the Contact column rather than taking a fifth of its
+             own: the grid is four columns at large widths, and a fifth would
+             reflow the whole footer for two links. Reads from SOCIAL_PROFILES,
+             so a new platform is one line in src/config/site.ts. -->
+        <p
+          class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-white/60 mt-8 mb-4"
+        >
+          Follow
+        </p>
+        <ul class="flex flex-col gap-3">
+          {
+            SOCIAL_PROFILES.map((profile) => (
+              <li>
+                <a
+                  href={profile.url}
+                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors inline-block py-1"
+                >
+                  {profile.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
       </div>
 
       <!-- Column 4: legal -->
