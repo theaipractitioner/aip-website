@@ -25,6 +25,8 @@ T2 = "Tier 2 - Strategic Differentiators"
 
 DOCS = [
     # slug, path under POLICIES, group, index order, and a one-line summary
+    # `order` is global across the whole suite, not per group: /policies
+    # lists all seven in one grid, in policy-number order.
     # written at import: the documents carry no abstract of their own.
     # Tier 1. Listed at v1.0 before those files exist: the importer skips a
     # missing file and refuses any document whose Status is not Approved, so
@@ -71,7 +73,7 @@ DOCS = [
         slug="ai-usage-and-governance",
         path="Tier 2 - Strategic Differentiators/AIP-PS-006-AI-Usage-and-Governance-Policy-v1.0.docx",
         group="how-we-work",
-        order=1,
+        order=6,
         summary="How we use AI tools in our own work: which tools are approved, what "
                 "client data may go near them, and who is accountable for the output.",
     ),
@@ -79,7 +81,7 @@ DOCS = [
         slug="digital-workers",
         path="Tier 2 - Strategic Differentiators/AIP-PS-007-Digital-Workers-Policy-v1.0.docx",
         group="how-we-work",
-        order=2,
+        order=7,
         summary="How we govern AI that operates as a registered, semi-autonomous member "
                 "of our workforce, rather than as a tool a human is driving.",
     ),

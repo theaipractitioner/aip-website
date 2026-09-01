@@ -1,16 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { POLICY_GROUPS, getPoliciesInGroup } from "../../lib/policies";
+import { getPolicies } from "../../lib/policies";
 
-// Groups with nothing published yet are dropped, so this page reads correctly
-// while the Tier 1 policies are still being approved.
-const groups = await Promise.all(
-  POLICY_GROUPS.map(async (group) => ({
-    ...group,
-    policies: await getPoliciesInGroup(group.id),
-  }))
-);
-const visibleGroups = groups.filter((g) => g.policies.length > 0);
+// All seven in one grid, in policy number order. The page carried a Legal /
+// How-we-work split until 1 September 2026; see the note in lib/policies.ts
+// for why it went. Still only lists what is published, so this reads correctly
+// however many exist.
+const policies = await getPolicies();
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -37,50 +33,39 @@ const dateFmt = new Intl.DateTimeFormat("en-GB", {
       <p
         class="font-body font-light text-[18px] text-aip-grey mt-4 max-w-[620px]"
       >
-        Most consultancies keep their internal policies internal. We publish
-        ours, in full, because a firm advising on AI governance should be
-        willing to show its own.
+        We sell AI governance, so we publish our own. These are the policies we
+        hold ourselves to, in full, including the parts that constrain us.
       </p>
     </div>
   </section>
 
-  <!-- Groups (Light Cloud) -->
+  <!-- All policies, one grid (Light Cloud) -->
   <section class="bg-aip-cloud">
-    <div class="mx-auto max-w-[1200px] px-6 py-20 flex flex-col gap-16">
-      {
-        visibleGroups.map((group) => (
-          <div>
-            <h2 class="font-heading font-semibold text-h2 text-aip-navy">
-              {group.title}
-            </h2>
-            <p class="font-body font-light text-[17px] text-aip-grey mt-3 max-w-[620px]">
-              {group.blurb}
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-              {group.policies.map((policy) => (
-                <a
-                  href={`/policies/${policy.id}/`}
-                  class="group bg-aip-white border border-aip-cloud rounded-lg p-7 flex flex-col no-underline hover:border-aip-teal transition-colors"
-                >
-                  <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
-                    {policy.data.policyId}
-                  </p>
-                  <h3 class="font-heading font-semibold text-h3 text-aip-navy mt-3 group-hover:text-aip-teal-deep transition-colors">
-                    {policy.data.title}
-                  </h3>
-                  <p class="font-body font-light text-[16px] text-aip-grey mt-3 grow">
-                    {policy.data.summary}
-                  </p>
-                  <p class="font-body text-[14px] text-aip-grey/70 mt-5">
-                    Version {policy.data.version} · Effective{" "}
-                    {dateFmt.format(policy.data.effectiveDate)}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
-        ))
-      }
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          policies.map((policy) => (
+            <a
+              href={`/policies/${policy.id}/`}
+              class="group bg-aip-white border border-aip-cloud rounded-lg p-7 flex flex-col no-underline hover:border-aip-teal transition-colors"
+            >
+              <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
+                {policy.data.policyId}
+              </p>
+              <h2 class="font-heading font-semibold text-h3 text-aip-navy mt-3 group-hover:text-aip-teal-deep transition-colors">
+                {policy.data.title}
+              </h2>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-3 grow">
+                {policy.data.summary}
+              </p>
+              <p class="font-body text-[14px] text-aip-grey/70 mt-5">
+                Version {policy.data.version} · Effective{" "}
+                {dateFmt.format(policy.data.effectiveDate)}
+              </p>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 </BaseLayout>

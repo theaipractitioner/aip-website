@@ -8,7 +8,7 @@ owner: "Tim Parkin, Director"
 appliesTo: "All AIP personnel, contractors and associates using AI tools in connection with any AIP business activity, including client delivery, research, administration, marketing and business operations"
 summary: "How we use AI tools in our own work: which tools are approved, what client data may go near them, and who is accountable for the output."
 group: "how-we-work"
-order: 1
+order: 6
 ---
 
 ## 1. Introduction and Purpose

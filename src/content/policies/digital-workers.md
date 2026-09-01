@@ -8,7 +8,7 @@ owner: "Tim Parkin, Director"
 appliesTo: "Every Digital Worker registered to operate within AIP, and every human who creates, supervises, reviews or retires one"
 summary: "How we govern AI that operates as a registered, semi-autonomous member of our workforce, rather than as a tool a human is driving."
 group: "how-we-work"
-order: 2
+order: 7
 ---
 
 ## 1. Introduction and Purpose

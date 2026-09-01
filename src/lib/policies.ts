@@ -11,32 +11,22 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export type Policy = CollectionEntry<"policies">;
 
-/** The two groups, in the order they appear on the index page. */
-export const POLICY_GROUPS = [
-  {
-    id: "legal" as const,
-    title: "Legal",
-    blurb:
-      "The terms you are agreeing to by using this site, and what we do with any information you give us.",
-  },
-  {
-    id: "how-we-work" as const,
-    title: "How we work with AI",
-    blurb:
-      "We sell AI governance, so we publish our own. These are the policies we hold ourselves to, in full, including the parts that constrain us.",
-  },
-];
+/* The index used to split these into a Legal group and a How-we-work group.
+   That was dropped on 1 September 2026, once all seven were published and the
+   split could be seen for what it did: five in one group and two in the other
+   left an orphan card with a gap beside it, and the how-we-work blurb was a
+   better statement of why the page exists than the hero it sat below. So the
+   blurb moved up to the hero and the seven now run as one grid in policy
+   number order.
+
+   `group` is still on each policy in the content schema. It is accurate, it
+   costs nothing, and it is what a future split would be built from. */
 
 /** Published policies, ordered as they should appear. */
 export async function getPolicies(): Promise<Policy[]> {
   return (await getCollection("policies")).sort(
     (a, b) => a.data.order - b.data.order
   );
-}
-
-/** Published policies for one group, ordered. */
-export async function getPoliciesInGroup(group: string): Promise<Policy[]> {
-  return (await getPolicies()).filter((p) => p.data.group === group);
 }
 
 /** One published policy by its ID, or undefined if it is not published yet.
