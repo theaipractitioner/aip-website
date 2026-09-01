@@ -111,14 +111,22 @@ automatic setup, confirmed in the dashboard on 1 September 2026 with traffic
 recorded. This section said "not started" until then, which was stale and
 briefly led to the wrong conclusion.
 
-**The beacon is invisible to `curl`.** Automatic setup injects it at the edge
-only for browser-like user agents, so `curl https://theaipractitioner.ai/ |
-grep cloudflareinsights` returns nothing and looks exactly like analytics not
-being installed. Pass a browser User-Agent to see it:
+**The beacon is invisible to `curl` unless you ask exactly right.** Automatic
+setup injects it at the edge, and the injection needs **both** a browser-like
+`User-Agent` **and** an `Accept: text/html` header. Miss either and the page
+comes back without it, looking identical to analytics never having been
+installed. A browser always sends both, so real visitors are counted.
+
+This cost time twice in one afternoon — once concluding analytics was off, and
+again when a check with the User-Agent but no `Accept` header appeared to
+confirm it. Use this, with both:
 
 ```bash
-curl -s -A "Mozilla/5.0" https://theaipractitioner.ai/ | grep -o 'cloudflareinsights[^"]*'
+curl -s -A "Mozilla/5.0" -H "Accept: text/html" https://theaipractitioner.ai/ \
+  | grep -o 'cloudflareinsights[^"]*'
 ```
+
+The dashboard is the authority either way: Analytics → Web analytics.
 
 Free, cookieless, so no consent banner is needed anywhere — that is precisely
 why it was chosen over GA4 and why Microsoft Clarity is deferred to Phase 2.
