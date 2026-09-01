@@ -106,7 +106,19 @@ committed.**
 
 ## 2. Cloudflare Web Analytics
 
-**Status: not started. Checklist item 12.**
+**Status: live since the 30 August cutover.** Site `theaipractitioner.ai`,
+automatic setup, confirmed in the dashboard on 1 September 2026 with traffic
+recorded. This section said "not started" until then, which was stale and
+briefly led to the wrong conclusion.
+
+**The beacon is invisible to `curl`.** Automatic setup injects it at the edge
+only for browser-like user agents, so `curl https://theaipractitioner.ai/ |
+grep cloudflareinsights` returns nothing and looks exactly like analytics not
+being installed. Pass a browser User-Agent to see it:
+
+```bash
+curl -s -A "Mozilla/5.0" https://theaipractitioner.ai/ | grep -o 'cloudflareinsights[^"]*'
+```
 
 Free, cookieless, so no consent banner is needed anywhere — that is precisely
 why it was chosen over GA4 and why Microsoft Clarity is deferred to Phase 2.

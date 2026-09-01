@@ -80,8 +80,8 @@ the worked example that a short post has to cut. Writing that in a hurry produce
 than silence.
 
 **Booking wired to a real calendar with a real price against it.** The 1:1 session is $175 and it
-now takes a payment and puts a slot in a diary. That sentence took longer to make true than it takes
-to read.
+now puts a real slot in a real diary. Payment is arranged separately rather than taken at the point
+of booking. That sentence took longer to make true than it takes to read.
 
 **Analytics running from the first day of real traffic.** Cloudflare Web Analytics went on at soft
 launch, before there was anything much to measure, which means the first month of the full site is
