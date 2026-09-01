@@ -1,5 +1,6 @@
 ---
 import Logo from "./Logo.astro";
+import SocialIcon from "./SocialIcon.astro";
 import {
   ANCHOR_PHRASE,
   COMPANY_JURISDICTION,
@@ -91,8 +92,9 @@ const year = 2026;
               <li>
                 <a
                   href={profile.url}
-                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors inline-block py-1"
+                  class="font-body font-light text-[16px] text-aip-white/80 hover:text-aip-white transition-colors inline-flex items-center gap-2.5 py-1"
                 >
+                  <SocialIcon name={profile.name} class="w-[18px] h-[18px]" />
                   {profile.name}
                 </a>
               </li>
