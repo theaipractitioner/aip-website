@@ -35,7 +35,7 @@ That is a clear denial of the specific accusation, and it should be read as one.
 
 Then the second part, from OpenAI's own statement:
 
-> "we cannot rule out that de-identified data derived from their usage of our products helped
+> "While unlikely, we cannot rule out that de-identified data derived from their usage of our products helped
 > improve our models."
 
 Both of those can be true at once. Nobody went and read the drafts. And the drafts may still have
