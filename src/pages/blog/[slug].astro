@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
 import DiscoveryCta from "../../components/DiscoveryCta.astro";
 import { Image } from "astro:assets";
 import { render } from "astro:content";
@@ -8,6 +9,7 @@ import {
   FOUNDER,
   SITE_URL,
   TRADING_NAME,
+  booking,
 } from "../../config/site";
 
 // Only published posts get a page. A future-dated post has no URL at all
@@ -96,6 +98,11 @@ const articleSchema = {
         <p class="font-body text-[14px] text-aip-grey/70 mt-6">
           {dateFmt.format(post.data.publishDate)} · {post.data.readingTime} min read
         </p>
+        <div class="mt-6" data-pagefind-ignore>
+          <Button variant="primary" href={booking.discoveryCall}>
+            Book a free call
+          </Button>
+        </div>
       </div>
 
       <!-- Hero photograph. Carries no text of its own by design, so the alt

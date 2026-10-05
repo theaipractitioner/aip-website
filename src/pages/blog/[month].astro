@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import DiscoveryCta from "../../components/DiscoveryCta.astro";
+import Button from "../../components/Button.astro";
 import PostGrid from "../../components/PostGrid.astro";
 import BlogSearch from "../../components/BlogSearch.astro";
 import MonthNav from "../../components/MonthNav.astro";
+import { booking } from "../../config/site";
 import { getMonthGroups, monthKey, monthLabel } from "../../lib/posts";
 
 // Archive page for one earlier month. The current month is served by /blog,
@@ -45,6 +47,11 @@ const { group, months, current } = Astro.props;
       <h1 class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy">
         {group.label}
       </h1>
+      <div class="mt-8">
+        <Button variant="primary" href={booking.discoveryCall}>
+          Book a free call
+        </Button>
+      </div>
     </div>
   </section>
 

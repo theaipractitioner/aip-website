@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DiscoveryCta from "../components/DiscoveryCta.astro";
+import Button from "../components/Button.astro";
 import PostGrid from "../components/PostGrid.astro";
 import BlogSearch from "../components/BlogSearch.astro";
 import MonthNav from "../components/MonthNav.astro";
+import { booking } from "../config/site";
 import { getMonthGroups, monthKey, monthLabel } from "../lib/posts";
 
 // The index shows the current month only; earlier months are at /blog/YYYY-MM.
@@ -39,6 +41,11 @@ const posts = groups.find((g) => g.key === current)?.posts ?? [];
         What the research actually says, what breaks when you put these tools on
         real work, and what to do about it.
       </p>
+      <div class="mt-8">
+        <Button variant="primary" href={booking.discoveryCall}>
+          Book a free call
+        </Button>
+      </div>
     </div>
   </section>
 
