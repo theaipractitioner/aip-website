@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
 import { Image } from "astro:assets";
 import { render } from "astro:content";
-import { getPublishedPosts } from "../../lib/posts";
+import { getPublishedPosts, monthKey, monthLabel } from "../../lib/posts";
 import {
   FOUNDER,
   SITE_URL,
@@ -24,6 +24,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Back-link goes to the post's own month: /blog now shows only the current one.
+const postMonth = monthKey(post.data.publishDate);
+const isCurrentMonth = postMonth === monthKey(new Date());
+const backHref = isCurrentMonth ? "/blog" : `/blog/${postMonth}`;
+const backLabel = `${monthLabel(postMonth)} posts`;
 
 const dateFmt = new Intl.DateTimeFormat("en-GB", {
   day: "numeric",
@@ -60,13 +66,22 @@ const articleSchema = {
   schema={articleSchema}
 >
   <!-- Post header (White) -->
-  <article>
+  <!-- Pagefind indexes only elements marked data-pagefind-body, so the blog
+       search covers post pages and nothing else on the site. -->
+  <article
+    data-pagefind-body
+    data-pagefind-filter={`category:${post.data.category}`}
+    data-pagefind-meta={`date:${post.data.publishDate.toISOString().slice(0, 10)}`}
+  >
+    <div hidden data-pagefind-meta="excerpt">{post.data.excerpt}</div>
+    <div hidden data-pagefind-filter="month">{postMonth}</div>
     <header class="bg-aip-white">
       <div class="mx-auto max-w-[720px] px-6 pt-20 pb-10">
         <a
-          href="/blog"
+          data-pagefind-ignore
+          href={backHref}
           class="font-body font-medium text-[13px] text-aip-teal-deep hover:underline inline-block mb-8"
-          >&larr; All posts</a
+          >&larr; {backLabel}</a
         >
         <p
           class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-3"
@@ -74,6 +89,7 @@ const articleSchema = {
           {post.data.category}
         </p>
         <h1
+          data-pagefind-meta="title"
           class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy"
         >
           {post.data.title}

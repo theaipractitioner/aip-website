@@ -1,0 +1,38 @@
+---
+import type { MonthGroup } from "../lib/posts";
+
+interface Props {
+  months: MonthGroup[];
+  /** Key of the month being viewed. */
+  active: string;
+  /** Key of the current calendar month; links to /blog rather than /blog/YYYY-MM. */
+  current: string;
+}
+
+const { months, active, current } = Astro.props;
+---
+
+<nav aria-label="Blog months">
+  <ul class="flex flex-wrap gap-3 list-none p-0 m-0">
+    {
+      months.map((m) => {
+        const isActive = m.key === active;
+        return (
+          <li>
+            <a
+              href={m.key === current ? "/blog" : `/blog/${m.key}`}
+              aria-current={isActive ? "page" : undefined}
+              class={`font-body font-medium text-[14px] rounded-full border px-4 py-2 no-underline transition-colors ${
+                isActive
+                  ? "bg-aip-navy text-aip-white border-aip-navy"
+                  : "bg-aip-white text-aip-teal-deep border-aip-cloud hover:border-aip-teal"
+              }`}
+            >
+              {m.label} ({m.posts.length})
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>

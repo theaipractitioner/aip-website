@@ -1,0 +1,40 @@
+---
+import type { Post } from "../lib/posts";
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+
+const dateFmt = new Intl.DateTimeFormat("en-GB", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+---
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  {
+    posts.map((post) => (
+      <a
+        href={`/blog/${post.id}`}
+        class="group bg-aip-white border border-aip-cloud rounded-lg p-7 flex flex-col no-underline hover:border-aip-teal transition-colors"
+      >
+        <p class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep">
+          {post.data.category}
+        </p>
+        <h3 class="font-heading font-semibold text-h3 text-aip-navy mt-3 group-hover:text-aip-teal-deep transition-colors">
+          {post.data.title}
+        </h3>
+        <p class="font-body font-light text-[16px] text-aip-grey mt-3 grow">
+          {post.data.excerpt}
+        </p>
+        <p class="font-body text-[14px] text-aip-grey/70 mt-5">
+          {dateFmt.format(post.data.publishDate)} · {post.data.readingTime}{" "}
+          min read
+        </p>
+      </a>
+    ))
+  }
+</div>

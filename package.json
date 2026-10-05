@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && npm run check",
+    "build": "astro build && pagefind --site dist && npm run check",
     "preview": "astro preview",
     "astro": "astro",
     "check": "node scripts/check-company-number.mjs"
@@ -17,5 +17,8 @@
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.2",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
   }
 }

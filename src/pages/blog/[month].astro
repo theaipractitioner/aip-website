@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostGrid from "../../components/PostGrid.astro";
+import BlogSearch from "../../components/BlogSearch.astro";
+import MonthNav from "../../components/MonthNav.astro";
+import { getMonthGroups, monthKey, monthLabel } from "../../lib/posts";
+
+// Archive page for one earlier month. The current month is served by /blog,
+// so it gets no page here and /blog/YYYY-MM never duplicates it.
+export async function getStaticPaths() {
+  const now = new Date();
+  const current = monthKey(now);
+  const groups = await getMonthGroups(now);
+  const months = groups.some((g) => g.key === current)
+    ? groups
+    : [{ key: current, label: monthLabel(current), posts: [] }, ...groups];
+  return groups
+    .filter((g) => g.key !== current)
+    .map((g) => ({
+      params: { month: g.key },
+      props: { group: g, months, current },
+    }));
+}
+
+const { group, months, current } = Astro.props;
+---
+
+<BaseLayout
+  title={`${group.label} | Blog | The AI Practitioner`}
+  description={`Blog posts from ${group.label}: notes on using AI properly at work.`}
+>
+  <section class="bg-aip-white">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <a
+        href="/blog"
+        class="font-body font-medium text-[13px] text-aip-teal-deep hover:underline inline-block mb-8"
+        >&larr; Back to {monthLabel(current)}</a
+      >
+      <p
+        class="font-body font-medium text-[12px] uppercase tracking-[0.06em] text-aip-teal-deep mb-3"
+      >
+        Blog archive
+      </p>
+      <h1 class="font-heading font-bold text-[32px] md:text-h1 leading-[1.15] text-aip-navy">
+        {group.label}
+      </h1>
+    </div>
+  </section>
+
+  <section class="bg-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-20">
+      <BlogSearch />
+      <div id="blog-browse">
+        <div class="mb-10">
+          <MonthNav months={months} active={group.key} current={current} />
+        </div>
+        <PostGrid posts={group.posts} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

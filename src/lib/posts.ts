@@ -39,3 +39,47 @@ export async function getPublishedPosts(now: Date = new Date()): Promise<Post[]>
     .filter((post) => post.data.publishDate.valueOf() <= now.valueOf())
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 }
+
+/* ------------------------------------------------------------------ */
+/*  Monthly grouping for the blog index and archive pages              */
+/*                                                                     */
+/*  /blog shows the current month only; earlier months live at         */
+/*  /blog/YYYY-MM. "Current" is the month of the build date, so the    */
+/*  daily 03:00 UTC build rolls the index over with no manual step.    */
+/*  Months are UTC, matching how `publishDate` is coerced.             */
+/* ------------------------------------------------------------------ */
+
+export type MonthGroup = {
+  /** "YYYY-MM" */
+  key: string;
+  /** e.g. "October 2026" */
+  label: string;
+  posts: Post[];
+};
+
+const monthLabelFmt = new Intl.DateTimeFormat("en-GB", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+export function monthKey(date: Date): string {
+  return date.toISOString().slice(0, 7);
+}
+
+export function monthLabel(key: string): string {
+  return monthLabelFmt.format(new Date(`${key}-01T00:00:00Z`));
+}
+
+/** Months that have published posts, newest first. Excludes the current
+ *  month if it has none; callers add it back where they need it. */
+export async function getMonthGroups(now: Date = new Date()): Promise<MonthGroup[]> {
+  const groups = new Map<string, Post[]>();
+  for (const post of await getPublishedPosts(now)) {
+    const key = monthKey(post.data.publishDate);
+    groups.set(key, [...(groups.get(key) ?? []), post]);
+  }
+  return [...groups]
+    .sort(([a], [b]) => (a < b ? 1 : -1))
+    .map(([key, posts]) => ({ key, label: monthLabel(key), posts }));
+}
