@@ -1,0 +1,56 @@
+---
+/* NGO rate, published from bd_offer_definition v1.5 §3: 30% off every
+   standard rate. Shared by /services and /book so the two cannot drift.
+   Figures are the document's own, not computed, so a rounding choice
+   there stays visible here. Edit the document first, then this list. */
+const rates = [
+  { offer: "One-to-One Coaching", standard: "$175", ngo: "$122.50" },
+  { offer: "Follow-Up One-to-One", standard: "$120", ngo: "$84" },
+  { offer: "AI Readiness Review", standard: "$1,800", ngo: "$1,260" },
+  { offer: "Small Group Workshop", standard: "$1,750", ngo: "$1,225" },
+  { offer: "Half-Day Workshop", standard: "$2,500", ngo: "$1,750" },
+  { offer: "Team Follow-Up", standard: "$1,000", ngo: "$700" },
+  { offer: "30-Day Adoption Track", standard: "$3,500", ngo: "$2,450" },
+  { offer: "Full Day Workshop", standard: "$4,000", ngo: "$2,800" },
+  { offer: "90-Day Adoption Track", standard: "$6,500", ngo: "$4,550" },
+];
+---
+
+<div
+  id="ngo-rate"
+  class="mt-8 rounded-lg bg-aip-teal-tint border border-aip-teal/30 p-7 max-w-[820px]"
+>
+  <h3 class="font-heading font-semibold text-h4 text-aip-navy">
+    Working for an NGO or development organisation?
+  </h3>
+  <p class="font-body font-light text-[16px] text-aip-grey mt-2">
+    Registered non-profit and development organisations operating in Cambodia,
+    Vietnam or Bangladesh get 30% off every standard rate. The development
+    sector is a deliberate focus, and the rate is published here so you do not
+    have to ask for it. Mention it when you get in touch and I will confirm
+    eligibility before you commit to anything.
+  </p>
+  <div class="overflow-x-auto mt-5">
+    <table class="w-full text-left font-body text-[15px] text-aip-grey">
+      <caption class="sr-only">NGO rate for each offer, in US dollars</caption>
+      <thead>
+        <tr class="border-b border-aip-teal/30 text-aip-navy">
+          <th scope="col" class="font-medium py-2 pr-4">Offer</th>
+          <th scope="col" class="font-medium py-2 pr-4 text-right">Standard</th>
+          <th scope="col" class="font-medium py-2 text-right">NGO rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rates.map((r) => (
+            <tr class="border-b border-aip-teal/15 last:border-0">
+              <th scope="row" class="font-light py-2 pr-4">{r.offer}</th>
+              <td class="font-light py-2 pr-4 text-right">{r.standard}</td>
+              <td class="font-medium text-aip-navy py-2 text-right">{r.ngo}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

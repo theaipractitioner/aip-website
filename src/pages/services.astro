@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/Button.astro";
 import SectionHeading from "../components/SectionHeading.astro";
+import NgoRate from "../components/NgoRate.astro";
 import {
   ANCHOR_PHRASE,
   SITE_URL,
@@ -21,16 +22,31 @@ import {
 /*  one, edit the other.                                               */
 /* ------------------------------------------------------------------ */
 
-/* Rates are from bd_offer_definition_v1.4 (16 Jul 2026), §3 Pricing
+/* Rates are from bd_offer_definition_v1.5 (6 Sep 2026), §3 Pricing
    Framework — the authoritative source. Note that document's caveat:
-   "Corporate rates are indicative — final rates depend on client size
+   "Corporate rates are indicative. Final rates depend on client size
    and scope", which is why the team rates carry a qualifying line.
 
-   The NGO rate is deliberately NOT published here. v1.4 specifies it is
-   "issued personally once NGO status is confirmed (typically during the
-   Discovery Call) — not published on the booking page." */
+   From v1.5 the 30% NGO rate IS published (see NgoRate.astro): the
+   discount was already being given, and requiring a conversation to
+   discover it cost the enquiry rather than protecting the margin. */
 
 const organisational = [
+  {
+    question: "We are not sure where AI fits in our organisation. Where do we start?",
+    name: "AI Readiness Review",
+    lede: "A half day of structured interviews across the functions in scope, followed by a written report. It is a paid diagnostic: consultancy rather than training, and a way in for an organisation that is not ready to commit a whole team yet.",
+    takeaway:
+      "You get a written account of what we found across the functions we spoke to, which is a firmer basis for deciding what training, if any, to buy next.",
+    price: "$1,800",
+    priceValue: 1800,
+    priceNote: "flat rate",
+    format: "A half day of interviews plus a written report. In-house or via Zoom.",
+    href: booking.discoveryCall,
+    cta: "Enquire about a readiness review",
+    featured: false,
+    kind: "service",
+  },
   {
     question: "How do I get my team actually using AI?",
     name: "Half-Day Workshop",
@@ -65,9 +81,9 @@ const organisational = [
     lede: "A half-day workshop for up to five people: small enough to stay genuinely hands-on, big enough that people learn from each other's questions. Often the right first step before committing a whole department.",
     takeaway:
       "Each participant works on a real task from their own job, building practical AI fluency alongside colleagues rather than in isolation.",
-    price: "$350",
-    priceValue: 350,
-    priceNote: "per person, for 4–5 people",
+    price: "$1,750",
+    priceValue: 1750,
+    priceNote: "flat rate, for up to 5 people",
     format: "3.5 hours: 9am–12:30pm or 1pm–4:30pm. In person or via Zoom.",
     href: booking.smallGroup,
     cta: "Book a small group workshop",
@@ -86,6 +102,37 @@ const organisational = [
     href: booking.discoveryCall,
     cta: "Enquire about a follow-up",
     featured: false,
+    workload: "PT1H30M",
+  },
+  {
+    question: "We want the change to stick, and we want it planned. What does a month look like?",
+    name: "30-Day Adoption Track",
+    lede: "A Half-Day Workshop, a Team Follow-Up at day 30, and a written 30-day rollout plan. The workshop teaches the skill, the follow-up checks it has held, and the plan says who does what in between.",
+    takeaway:
+      "Everything in it is available separately, worth $4,000 if bought that way. Bundled, it is $3,500.",
+    price: "$3,500",
+    priceValue: 3500,
+    priceNote: "flat rate, for up to 15 people",
+    format: "Half-Day Workshop, Team Follow-Up at day 30, and a written 30-day rollout plan. In-house or via Zoom.",
+    href: booking.discoveryCall,
+    cta: "Enquire about the 30-day track",
+    featured: false,
+    workload: "P30D",
+  },
+  {
+    question: "We want a full quarter of support, including our managers. What does that involve?",
+    name: "90-Day Adoption Track",
+    lede: "A Half-Day Workshop, three Team Follow-Ups at days 30, 60 and 90, two one-to-one sessions for managers, and a written 90-day rollout plan. It is the longest engagement we offer, and the one that puts managers in the room.",
+    takeaway:
+      "Everything in it is available separately, worth $7,350 if bought that way. Bundled, it is $6,500.",
+    price: "$6,500",
+    priceValue: 6500,
+    priceNote: "flat rate, for up to 15 people",
+    format: "Half-Day Workshop, Team Follow-Ups at days 30, 60 and 90, two manager 1:1 sessions, and a written 90-day rollout plan. In-house or via Zoom.",
+    href: booking.discoveryCall,
+    cta: "Enquire about the 90-day track",
+    featured: false,
+    workload: "P90D",
   },
 ];
 
@@ -136,20 +183,34 @@ const offer = (value: number | null) =>
       };
 
 const schema = [
-  ...organisational.map((s) => ({
-    "@context": "https://schema.org",
-    "@type": "Course",
-    name: s.name,
-    description: s.lede,
-    provider,
-    courseMode: ["Onsite", "Online"],
-    offers: offer(s.priceValue),
-    hasCourseInstance: {
-      "@type": "CourseInstance",
-      courseMode: ["Onsite", "Online"],
-      courseWorkload: s.name === "Full Day Workshop" ? "PT7H" : "PT3H30M",
-    },
-  })),
+  ...organisational.map((s) =>
+    s.kind === "service"
+      ? {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: s.name,
+          description: s.lede,
+          provider,
+          serviceType: "AI readiness consultancy",
+          offers: offer(s.priceValue),
+        }
+      : {
+          "@context": "https://schema.org",
+          "@type": "Course",
+          name: s.name,
+          description: s.lede,
+          provider,
+          courseMode: ["Onsite", "Online"],
+          offers: offer(s.priceValue),
+          hasCourseInstance: {
+            "@type": "CourseInstance",
+            courseMode: ["Onsite", "Online"],
+            courseWorkload:
+              s.workload ??
+              (s.name === "Full Day Workshop" ? "PT7H" : "PT3H30M"),
+          },
+        },
+  ),
   ...individual.map((s) => ({
     "@context": "https://schema.org",
     "@type": "Service",
@@ -164,7 +225,7 @@ const schema = [
 
 <BaseLayout
   title={`Services and Pricing | ${TRADING_NAME}`}
-  description={`AI training for teams and individuals, with prices published. Half-day workshops from $2,500 for up to 15 people, small group from $350 per person, one-to-one from $175. ${ANCHOR_PHRASE}.`}
+  description={`AI training for teams and individuals, with prices published. Half-day workshops $2,500 for up to 15 people, small group workshops $1,750 for up to 5, one-to-one from $175. ${ANCHOR_PHRASE}.`}
   schema={schema}
 >
   <!-- 1. Hero (White) -->
@@ -258,21 +319,7 @@ const schema = [
         }
       </div>
 
-      <!-- NGO rate is named but not priced. v1.4 issues it as a private
-           code once status is confirmed on the discovery call. -->
-      <div
-        class="mt-8 rounded-lg bg-aip-teal-tint border border-aip-teal/30 p-7 max-w-[820px]"
-      >
-        <h3 class="font-heading font-semibold text-h4 text-aip-navy">
-          Working for an NGO?
-        </h3>
-        <p class="font-body font-light text-[16px] text-aip-grey mt-2">
-          Registered NGOs based in Cambodia are charged a reduced rate on every
-          session on this page. The development sector is a deliberate focus,
-          not an afterthought. Mention it on the discovery call and I will
-          confirm the rate before you commit to anything.
-        </p>
-      </div>
+      <NgoRate />
 
       <p class="font-body font-light text-[15px] text-aip-grey mt-6 max-w-[720px]">
         Team rates are indicative. The final figure depends on group size and
