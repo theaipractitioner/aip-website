@@ -69,6 +69,12 @@ export const REGISTERED_OFFICE_LINE = [
 /** Used verbatim, everywhere. Supersedes the older "AI Fluency for Professionals". */
 export const ANCHOR_PHRASE = "AI Fluency for Experienced Professionals";
 
+/** Mission Statement v1.0, agreed 7 June 2026 (next review 7 June 2027).
+ *  Source: Cowork OS / Business Development / 04 Brand & Content /
+ *  AIP-Mission-Statement-v1.0.docx. Used verbatim: change it there, not here. */
+export const MISSION_STATEMENT =
+  "The AI Practitioner exists to close the gap between AI\u2019s potential and an organisation\u2019s ability to realise it \u2014 through practical training and consultancy that turns capable professionals into a genuine competitive advantage.";
+
 /* ------------------------------------------------------------------ */
 /*  Social profiles                                                    */
 /*                                                                     */

@@ -8,6 +8,7 @@ import {
   COMPANY_NUMBER,
   CONTACT_EMAIL,
   LOCATION,
+  MISSION_STATEMENT,
   REGISTERED_OFFICE_LINE,
   SOCIAL_PROFILES,
   TRADING_NAME,
@@ -26,6 +27,21 @@ const year = 2026;
 
 <footer class="bg-aip-navy text-aip-white">
   <div class="mx-auto max-w-[1200px] px-6 py-20">
+    <!-- Mission: its own row because the agreed wording is a full sentence,
+         too long for the narrow first column. -->
+    <div class="pb-12 mb-12 border-b border-aip-white/15">
+      <p
+        class="font-body font-medium text-[13px] uppercase tracking-[0.06em] text-aip-white/60 mb-4"
+      >
+        Our mission
+      </p>
+      <p
+        class="font-heading font-semibold text-[22px] md:text-[26px] leading-[1.35] text-aip-white max-w-[820px]"
+      >
+        {MISSION_STATEMENT}
+      </p>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
       <!-- Column 1: logo + tagline -->
       <div>
