@@ -1,0 +1,30 @@
+---
+import Button from "./Button.astro";
+import { booking } from "../config/site";
+
+interface Props {
+  heading?: string;
+  text?: string;
+}
+
+const {
+  heading = "Want this applied to your own work?",
+  text = "A discovery call is a short, no-obligation conversation about where AI fits in your team, and where it does not.",
+} = Astro.props;
+---
+
+<section class="bg-aip-navy">
+  <div class="mx-auto max-w-[1200px] px-6 py-16 text-center">
+    <h2 class="font-heading font-bold text-h2 text-aip-white">{heading}</h2>
+    <p
+      class="font-body font-light text-[16px] text-aip-white/80 mt-4 max-w-[620px] mx-auto"
+    >
+      {text}
+    </p>
+    <div class="mt-8">
+      <Button variant="primary" href={booking.discoveryCall}>
+        Book a free discovery call
+      </Button>
+    </div>
+  </div>
+</section>

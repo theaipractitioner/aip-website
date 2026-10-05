@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Button from "../../components/Button.astro";
+import DiscoveryCta from "../../components/DiscoveryCta.astro";
 import { Image } from "astro:assets";
 import { render } from "astro:content";
 import { getPublishedPosts, monthKey, monthLabel } from "../../lib/posts";
@@ -8,7 +8,6 @@ import {
   FOUNDER,
   SITE_URL,
   TRADING_NAME,
-  booking,
 } from "../../config/site";
 
 // Only published posts get a page. A future-dated post has no URL at all
@@ -123,17 +122,6 @@ const articleSchema = {
     </div>
   </article>
 
-  <!-- Closing CTA (Light Cloud) -->
-  <section class="bg-aip-cloud">
-    <div class="mx-auto max-w-[720px] px-6 py-16">
-      <h2 class="font-heading font-semibold text-h3 text-aip-navy">
-        Want this applied to your own work?
-      </h2>
-      <p class="font-body font-light text-[16px] text-aip-grey mt-3 mb-7">
-        A discovery call is a short, no-obligation conversation about where AI
-        fits in your team, and where it does not.
-      </p>
-      <Button href={booking.discoveryCall}>Book a discovery call</Button>
-    </div>
-  </section>
+  <!-- Closing CTA -->
+  <DiscoveryCta />
 </BaseLayout>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import DiscoveryCta from "../../components/DiscoveryCta.astro";
 import PostGrid from "../../components/PostGrid.astro";
 import BlogSearch from "../../components/BlogSearch.astro";
 import MonthNav from "../../components/MonthNav.astro";
@@ -58,4 +59,9 @@ const { group, months, current } = Astro.props;
       </div>
     </div>
   </section>
+
+  <DiscoveryCta
+    heading="Want this applied to your own work?"
+    text="A discovery call is a short, no-obligation conversation about where AI fits in your team, and where it does not."
+  />
 </BaseLayout>

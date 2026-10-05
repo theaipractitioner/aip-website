@@ -1,6 +1,7 @@
 ---
 import Logo from "./Logo.astro";
-import { visibleNavLinks as navLinks } from "../config/site";
+import Button from "./Button.astro";
+import { booking, visibleNavLinks as navLinks } from "../config/site";
 ---
 
 <header class="sticky top-0 z-50 bg-aip-white border-b border-aip-cloud">
@@ -23,6 +24,9 @@ import { visibleNavLinks as navLinks } from "../config/site";
           </a>
         ))
       }
+      <Button href={booking.discoveryCall} class="!px-5 !py-2">
+        Book a free call
+      </Button>
     </nav>
 
     <!-- Mobile hamburger -->
@@ -55,6 +59,9 @@ import { visibleNavLinks as navLinks } from "../config/site";
           </a>
         ))
       }
+      <Button href={booking.discoveryCall} class="text-center">
+        Book a free discovery call
+      </Button>
     </div>
   </nav>
 </header>
