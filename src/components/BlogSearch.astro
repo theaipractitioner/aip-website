@@ -51,6 +51,49 @@
   const browse = document.getElementById("blog-browse");
   const form = document.getElementById("blog-search-form")!;
 
+  const selects = { category: cat, month: month };
+  let allFilters: Record<string, Record<string, number>> = {};
+
+  function monthName(v: string) {
+    return new Date(`${v}-01T00:00:00Z`).toLocaleDateString("en-GB", {
+      month: "long",
+      year: "numeric",
+      timeZone: "UTC",
+    });
+  }
+
+  // Each dropdown shows how many posts each option would give with the query
+  // and the *other* dropdown applied, so the numbers match what you will get
+  // on selecting it. Options that would give nothing are disabled.
+  function showCounts(counts: { category?: Record<string, number>; month?: Record<string, number> }) {
+    for (const key of ["category", "month"] as const) {
+      for (const opt of Array.from(selects[key].options)) {
+        if (opt.value === "") continue;
+        const n = counts[key]?.[opt.value] ?? 0;
+        const label = key === "month" ? monthName(opt.value) : opt.value;
+        opt.textContent = `${label} (${n})`;
+        opt.disabled = n === 0 && opt.value !== selects[key].value;
+      }
+    }
+  }
+
+  // Counted by running one search per option rather than reading Pagefind's
+  // `filters` totals, which do not report a key the other filter is applied to.
+  async function refreshCounts(term: string) {
+    const count = async (filters: Record<string, string>) =>
+      (await pf.search(term || null, { filters })).results.length;
+    const counts: Record<"category" | "month", Record<string, number>> = { category: {}, month: {} };
+    await Promise.all([
+      ...Object.keys(allFilters.category ?? {}).map(async (v) => {
+        counts.category[v] = await count({ category: v, ...(month.value && { month: month.value }) });
+      }),
+      ...Object.keys(allFilters.month ?? {}).map(async (v) => {
+        counts.month[v] = await count({ month: v, ...(cat.value && { category: cat.value }) });
+      }),
+    ]);
+    showCounts(counts);
+  }
+
   let pf: any = null;
   let loading: Promise<any> | null = null;
 
@@ -61,22 +104,13 @@
         const url = "/pagefind/pagefind.js";
         pf = await import(/* @vite-ignore */ url);
         await pf.init();
-        const filters = await pf.filters();
-        for (const [key, el] of [["category", cat], ["month", month]] as const) {
-          const values = Object.keys(filters[key] ?? {});
+        allFilters = await pf.filters();
+        for (const key of ["category", "month"] as const) {
+          const values = Object.keys(allFilters[key] ?? {});
           if (key === "month") values.sort().reverse(); // YYYY-MM, newest first
-          for (const v of values) {
-            const label =
-              key === "month"
-                ? new Date(`${v}-01T00:00:00Z`).toLocaleDateString("en-GB", {
-                    month: "long",
-                    year: "numeric",
-                    timeZone: "UTC",
-                  })
-                : v;
-            el.add(new Option(`${label} (${filters[key][v]})`, v));
-          }
+          for (const v of values) selects[key].add(new Option(v, v));
         }
+        showCounts(allFilters);
       } catch {
         pf = null;
       }
@@ -102,6 +136,7 @@
     history.replaceState(null, "", url);
 
     if (!active) {
+      if (pf) showCounts(allFilters);
       results.innerHTML = "";
       status.textContent = "";
       browse?.removeAttribute("hidden");
@@ -117,6 +152,7 @@
     const s = await pf.search(term || null, { filters });
     const items = await Promise.all(s.results.slice(0, 30).map((r: any) => r.data()));
     if (me !== run) return; // a newer search has started
+    await refreshCounts(term);
 
     browse?.setAttribute("hidden", "");
     status.textContent =
