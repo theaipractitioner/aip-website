@@ -117,16 +117,15 @@ export const LOCATION = {
 /* ------------------------------------------------------------------ */
 /*  Booking                                                            */
 /*                                                                     */
-/*  Live cal.eu event types. Wiring CTAs straight to these gives a     */
-/*  working conversion path at soft launch without the /book page.     */
+/*  Live Cal.com event types (migrated from cal.eu on 2026-10-07; the  */
+/*  old cal.eu links redirect here). Wiring CTAs straight to these     */
+/*  gives a working conversion path without the /book page.            */
 /*  NOTE: the marketing plan names Acuity Scheduling for Phase 2 —     */
-/*  the live booking system is cal.eu. If that is reconciled in        */
+/*  the live booking system is Cal.com. If that is reconciled in       */
 /*  favour of Acuity, every CTA changes here and nowhere else.         */
 /* ------------------------------------------------------------------ */
 
-// `www` is deliberate: cal.eu 301s to www.cal.eu, so omitting it costs
-// every booking CTA an extra redirect round trip.
-const CAL = "https://www.cal.eu/etltmpn";
+const CAL = "https://cal.com/etltmpn";
 
 export const booking = {
   discoveryCall: `${CAL}/discovery-call`,
