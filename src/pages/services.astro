@@ -31,6 +31,29 @@ import {
    discount was already being given, and requiring a conversation to
    discover it cost the enquiry rather than protecting the margin. */
 
+/* How it works: written from the real flow in bd_offer_definition_v1.5
+   (discovery call, then a written proposal for team work, then delivery).
+   No pre-session form is promised: the support materials are not built
+   yet, so preparation is described as a conversation. */
+const howItWorks = [
+  {
+    title: "We talk",
+    body: "A free 30-minute discovery call. You tell me what you are trying to change, and I tell you honestly whether I can help. No obligation, no jargon.",
+  },
+  {
+    title: "We agree the shape",
+    body: "For teams, I confirm scope, group size and format in a short written proposal. For one-to-one, you simply book a time. Prices are published, and nothing is taken before we have spoken.",
+  },
+  {
+    title: "I prepare",
+    body: "Before we meet, I ask what you or your team actually spend the week doing. The session is built on that, so it is never a generic demo.",
+  },
+  {
+    title: "We work, then keep going",
+    body: "The session runs on Zoom, or in person in Siem Reap. Workshops leave you with the AI Fluency Framework, a reference pack and a 30-day practice plan. A follow-up session is there when you want one.",
+  },
+];
+
 const organisational = [
   {
     question: "We are not sure where AI fits in our organisation. Where do we start?",
@@ -254,6 +277,35 @@ const schema = [
           I'm buying for myself
         </Button>
       </div>
+    </div>
+  </section>
+
+  <!-- 1b. How it works (White, ruled off from the hero) -->
+  <section class="bg-aip-white border-t border-aip-cloud">
+    <div class="mx-auto max-w-[1200px] px-6 py-16">
+      <SectionHeading
+        eyebrow="How it works"
+        heading="No surprises"
+        subtext="What happens between your first message and your team using AI in their own work."
+        class="mb-10 max-w-[720px]"
+      />
+      <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 list-none p-0">
+        {
+          howItWorks.map((step, i) => (
+            <li>
+              <p class="font-heading font-bold text-[32px] leading-none text-aip-teal-deep">
+                {i + 1}
+              </p>
+              <h3 class="font-heading font-semibold text-h4 text-aip-navy mt-3">
+                {step.title}
+              </h3>
+              <p class="font-body font-light text-[16px] text-aip-grey mt-3">
+                {step.body}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
     </div>
   </section>
 
